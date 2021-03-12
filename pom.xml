@@ -267,5 +267,18 @@
         	</picUrl>
         </properties>
 	</developer>
+	<developer>
+        <id>ferrabled</id>
+        <name>Fernando Rabasco</name>
+        <email>ferrabled@alum.us.es</email>
+        <roles>
+            <role>developer</role>
+        </roles>
+        <properties>
+        	<picUrl>https://avatars.githubusercontent.com/u/48551658?s=400
+        	</picUrl>
+        </properties>
+	</developer>
+	
 </developers>
 </project>
