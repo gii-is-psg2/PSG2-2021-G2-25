@@ -254,7 +254,18 @@
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
-
-
-
+<developers>
+    <developer>
+        <id>dancasnar1</id>
+        <name>Daniel</name>
+        <email>dancasnar1@alum.us.es</email>
+        <roles>
+            <role>developer</role>
+        </roles>
+        <properties>
+        	<picUrl>https://avatars.githubusercontent.com/u/72876542?s=400
+        	</picUrl>
+        </properties>
+	</developer>
+</developers>
 </project>
