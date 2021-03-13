@@ -15,7 +15,6 @@
     <name>PSG2-2021-G2-25 Petclinic</name>
 
     <properties>
-
         <!-- Generic properties -->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,8 +28,46 @@
 
         <jacoco.version>0.8.5</jacoco.version>
         <spring-format.version>0.0.19</spring-format.version>
-
     </properties>
+    
+	<developers>
+	    <developer>
+	        <id>dancasnar1</id>
+	        <name>Daniel</name>
+	        <email>dancasnar1@alum.us.es</email>
+	        <roles>
+	            <role>developer</role>
+	        </roles>
+	        <properties>
+	        	<picUrl>https://avatars.githubusercontent.com/u/72876542?s=400
+	        	</picUrl>
+	        </properties>
+		</developer>
+		<developer>
+	        <id>ferrabled</id>
+	        <name>Fernando Rabasco</name>
+	        <email>ferrabled@alum.us.es</email>
+	        <roles>
+	            <role>developer</role>
+	        </roles>
+	        <properties>
+	        	<picUrl>https://avatars.githubusercontent.com/u/48551658?s=400
+	        	</picUrl>
+	        </properties>
+		</developer>
+		<developer>
+	        <id>jesbarsig</id>
+	        <name>Jesús Barba</name>
+	        <email>jesbarsig@alum.us.es</email>
+	        <roles>
+	            <role>developer/scrum master</role>
+	        </roles>
+	        <properties>
+	        	<picUrl>https://avatars.githubusercontent.com/u/62173360?s=400
+	        	</picUrl>
+	        </properties>
+		</developer>
+	</developers>
 
     <dependencies>
         <!-- Spring and Spring Boot dependencies -->
@@ -254,31 +291,4 @@
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
-<developers>
-    <developer>
-        <id>dancasnar1</id>
-        <name>Daniel</name>
-        <email>dancasnar1@alum.us.es</email>
-        <roles>
-            <role>developer</role>
-        </roles>
-        <properties>
-        	<picUrl>https://avatars.githubusercontent.com/u/72876542?s=400
-        	</picUrl>
-        </properties>
-	</developer>
-	<developer>
-        <id>ferrabled</id>
-        <name>Fernando Rabasco</name>
-        <email>ferrabled@alum.us.es</email>
-        <roles>
-            <role>developer</role>
-        </roles>
-        <properties>
-        	<picUrl>https://avatars.githubusercontent.com/u/48551658?s=400
-        	</picUrl>
-        </properties>
-	</developer>
-	
-</developers>
 </project>
