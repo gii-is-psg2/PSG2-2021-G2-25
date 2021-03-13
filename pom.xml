@@ -67,6 +67,18 @@
 	        	</picUrl>
 	        </properties>
 		</developer>
+		<developer>
+			<id>margonval</id>
+			<name>Marcelino González</name>
+			<email>margonval@alum.us.es</email>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<properties>
+				<picUrl>https://avatars.githubusercontent.com/u/72875737?s=400
+				</picUrl>
+			</properties>
+		</developer>
 	</developers>
 
     <dependencies>
