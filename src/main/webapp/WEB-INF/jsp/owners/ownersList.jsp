@@ -11,11 +11,11 @@
     <table id="ownersTable" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 150px;">Name</th>
-            <th style="width: 200px;">Address</th>
-            <th>City</th>
-            <th style="width: 120px">Telephone</th>
-            <th>Pets</th>
+            <th style="background-color: #CACACA;width: 150px;">Name</th>
+            <th style="background-color: #CACACA;width: 200px;">Address</th>
+            <th style="background-color: #CACACA;">City</th>
+            <th style="background-color: #CACACA;width: 120px">Telephone</th>
+            <th style="background-color: #CACACA;">Pets</th>
         </tr>
         </thead>
         <tbody>
