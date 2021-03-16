@@ -79,18 +79,6 @@
 				</picUrl>
 			</properties>
 		</developer>
-		<developer>
-			<id>vicsorvaz</id>
-			<name>Vicente Soria</name>
-			<email>vicsorvaz@alum.us.es</email>
-			<roles>
-				<role>developer</role>
-			</roles>
-			<properties>
-				<picUrl>https://avatars.githubusercontent.com/u/73025842?s=460
-				</picUrl>
-			</properties>
-		</developer>
 	</developers>
 
     <dependencies>
