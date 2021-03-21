@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -42,12 +43,15 @@ public class PetService {
 	
 	private VisitRepository visitRepository;
 	
+	private OwnerService ownerService;
+	
 
 	@Autowired
-	public PetService(PetRepository petRepository,
-			VisitRepository visitRepository) {
+	public PetService(PetRepository petRepository, VisitRepository visitRepository,
+			OwnerService ownerService) {
 		this.petRepository = petRepository;
 		this.visitRepository = visitRepository;
+		this.ownerService = ownerService;
 	}
 
 	@Transactional(readOnly = true)
@@ -74,9 +78,14 @@ public class PetService {
                 petRepository.save(pet);                
 	}
 
-
+	@Transactional(readOnly = true)
 	public Collection<Visit> findVisitsByPetId(int petId) {
 		return visitRepository.findByPetId(petId);
+	}
+
+	@Transactional(readOnly = true)
+	public List<Pet> findPetsByOwner() {
+		return petRepository.findPetsByOwner(ownerService.getSessionId());
 	}
 
 }

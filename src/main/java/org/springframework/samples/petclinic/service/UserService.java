@@ -21,7 +21,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.User;
+import org.springframework.samples.petclinic.repository.AuthoritiesRepository;
 import org.springframework.samples.petclinic.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,10 +38,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
 	private UserRepository userRepository;
+	private AuthoritiesRepository authorityRepository;
 
 	@Autowired
-	public UserService(UserRepository userRepository) {
+	public UserService(UserRepository userRepository, AuthoritiesRepository authorityRepository) {
 		this.userRepository = userRepository;
+		this.authorityRepository = authorityRepository;
 	}
 
 	@Transactional
@@ -46,8 +51,30 @@ public class UserService {
 		user.setEnabled(true);
 		userRepository.save(user);
 	}
+
+	public Optional<User> findUser(String username) throws DataAccessException {
+		return (userRepository.findById(username).isPresent()) ? userRepository.findById(username) : null;
+	}
+
+	public String obtenerUsername() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = "";
+		if (principal instanceof UserDetails) {
+			username = ((UserDetails) principal).getUsername();
+		} else {
+			username = principal.toString();
+		}
+		return username;
+	}
 	
-	public Optional<User> findUser(String username) {
-		return userRepository.findById(username);
+	public String getAuthority() {
+		if(obtenerUsername().equals("anonymousUser")) {
+			return "anonymous";
+		}
+		return authorityRepository.getAuthority(obtenerUsername());
+	}
+	
+	public String getAuthority(String username) {
+		return authorityRepository.getAuthority(username);
 	}
 }
