@@ -15,14 +15,19 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.Map;
 
 /**
  * @author Juergen Hoeller
@@ -34,6 +39,9 @@ import java.util.Map;
 public class VetController {
 
 	private final VetService vetService;
+	
+	private static final String VIEWS_VET_CREATE_FORM = "vets/createUpdateVet";
+
 
 	@Autowired
 	public VetController(VetService clinicService) {
@@ -60,5 +68,23 @@ public class VetController {
 		vets.getVetList().addAll(this.vetService.findVets());
 		return vets;
 	}
-
+	
+	@GetMapping(value = "/vets/new")
+	public String initCreationForm(Map<String, Object> model) {
+		Vet vet = new Vet();
+		model.put("vet", vet);
+		return VIEWS_VET_CREATE_FORM;
+	}
+	
+	@PostMapping(value = "/vets/new")
+	public String processCreationForm(@Valid Vet newVet, BindingResult result) {
+		if (result.hasErrors()) {
+			return VIEWS_VET_CREATE_FORM;
+		}
+		else {
+			//creating owner, user, and authority
+			this.vetService.saveVet(newVet);
+			return "redirect:/";
+		}
+	}
 }

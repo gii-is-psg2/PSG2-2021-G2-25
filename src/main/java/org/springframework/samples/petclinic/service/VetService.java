@@ -56,4 +56,14 @@ public class VetService {
 		return vetRepository.findAll();
 	}	
 
+	
+	@Transactional
+	public void saveVet(Vet vet) throws DataAccessException {
+		//creating owner
+		vetRepository.save(vet);		
+		//creating user
+		//vetRepository.saveUser(vet.getUser());
+		//creating authorities
+		//authoritiesService.saveAuthorities(owner.getUser().getUsername(), "owner");
+	}		
 }
