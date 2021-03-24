@@ -29,7 +29,7 @@
                     <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
                 </td>
                 <td>
-                	<spring:url value="{vetId}/edit" var="editUrl">
+                	<spring:url value="/vet/{vetId}/edit" var="editUrl">
         				<spring:param name="vetId" value="${vet.id}"/>
     				</spring:url>
                 	<a href="${editUrl}" class="btn btn-default">Edit Vet</a>

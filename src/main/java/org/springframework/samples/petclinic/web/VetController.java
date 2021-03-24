@@ -15,17 +15,23 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.Collection;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -84,7 +90,33 @@ public class VetController {
 		else {
 			//creating owner, user, and authority
 			this.vetService.saveVet(newVet);
-			return "redirect:/";
+			return "redirect:/vets";
+		}
+	}
+	
+	@ModelAttribute("specialties")
+    public Collection<Specialty> getAllSpecialtys() {
+        return this.vetService.findAllSpecialtys();
+    }
+	
+	@GetMapping(value = "/vet/{vetId}/edit")
+	public String initUpdateVetForm(@PathVariable("vetId") int vetId, Model model) {
+		Vet vet = this.vetService.findVetById(vetId);
+		model.addAttribute(vet);
+		return VIEWS_VET_CREATE_FORM;
+	}
+
+	@PostMapping(value = "/vet/{vetId}/edit")
+	public String processUpdateVetForm(@Valid Vet vet, BindingResult result,
+			@PathVariable("vetId") int vetId) {
+		if (result.hasErrors()) {
+			return VIEWS_VET_CREATE_FORM;
+		}
+		else {
+			vet.setSpecialtiesInternal(vet.getSpecialties().stream().collect(Collectors.toSet()));
+			vet.setId(vetId);
+			this.vetService.saveVet(vet);
+			return "redirect:/vets";
 		}
 	}
 }
