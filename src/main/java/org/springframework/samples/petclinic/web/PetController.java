@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.BeanUtils;
@@ -150,5 +151,11 @@ public class PetController {
 			return "redirect:/owners/{ownerId}";
 		}
 	}
+    	@GetMapping("/pets/{petId}/delete")
+    	public String deletePet(Map<String, Object> model, @PathVariable("petId") int petId) {
+    		Pet pet = this.petService.findPetById(petId);
+    		this.petService.deletePet(pet);
+    		return "redirect:/owners/{ownerId}";
+    	}
 
 }

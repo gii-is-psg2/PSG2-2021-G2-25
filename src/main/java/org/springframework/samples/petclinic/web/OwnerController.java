@@ -145,7 +145,7 @@ public class OwnerController {
 	public String deleteOwner(Map<String, Object> model, @PathVariable("ownerId") int ownerId) {
 		Owner owner = this.ownerService.findOwnerById(ownerId);
 		this.ownerService.deleteOwner(owner);
-		return "redirect:/owners/ownersList";
+		return "redirect:/owners/{ownerId}";
 	}
 
 }

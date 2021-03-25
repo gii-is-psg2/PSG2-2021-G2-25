@@ -20,10 +20,12 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.VetService;
+import org.springframework.samples.petclinic.service.VisitService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -39,10 +41,13 @@ import org.springframework.web.bind.annotation.*;
 public class VisitController {
 
 	private final PetService petService;
+	private final VisitService visitService;
 
 	@Autowired
-	public VisitController(PetService petService) {
+	public VisitController(VisitService visitService, PetService petService) {
+		this.visitService = visitService;
 		this.petService = petService;
+		
 	}
 
 	@InitBinder
@@ -88,6 +93,13 @@ public class VisitController {
 	public String showVisits(@PathVariable int petId, Map<String, Object> model) {
 		model.put("visits", this.petService.findPetById(petId).getVisits());
 		return "visitList";
+	}
+	
+	@GetMapping("/visits/{visitId}/delete")
+	public String deleteVisit(Map<String, Object> model, @PathVariable("visitId") int visitId) {
+		Visit visit = this.visitService.findVisitById(visitId);
+		this.visitService.deleteVisit(visit);
+		return "redirect:/owners";
 	}
 
 }
