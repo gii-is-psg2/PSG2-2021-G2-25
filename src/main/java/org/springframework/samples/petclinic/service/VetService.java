@@ -16,6 +16,8 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,14 +55,11 @@ public class VetService {
 		return vetRepository.findById(id);
 	}
 
-	@Transactional(readOnly = true)	
-	public Collection<Specialty> findAllSpecialtys() throws DataAccessException {
-		return vetRepository.findSpecialtys();
-	}
 	
 	@Transactional
 	public void saveVet(Vet vet) throws DataAccessException {
 		//creating owner
+		
 		vetRepository.save(vet);		
 		//creating user
 		//vetRepository.saveUser(vet.getUser());

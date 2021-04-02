@@ -46,8 +46,6 @@ public interface VetRepository extends Repository<Vet, Integer>{
 	 */
 	Collection<Vet> findAll() throws DataAccessException;
 
-	@Query("SELECT specialty FROM Specialty specialty")
-	public Collection<Specialty> findSpecialtys();
 	
 	@Query("SELECT vet FROM Vet vet WHERE vet.id =:id")
 	public Vet findById(@Param("id") int id);
