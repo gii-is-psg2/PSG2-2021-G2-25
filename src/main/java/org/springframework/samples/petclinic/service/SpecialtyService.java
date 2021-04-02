@@ -36,17 +36,14 @@ public class SpecialtyService {
 	
 	
 	@Transactional
-	public void saveSpecialties(Vet vet, List<String> specialties) throws DataAccessException {
-		Set<Specialty> specialitiesSet = new HashSet<>();
-		for (String specialty : specialties) {
-			Specialty S = new Specialty();
-			S.setName(specialty);
-			this.specRepository.save(S);
-			specialitiesSet.add(S);
-		}
-		vet.setSpecialtiesInternal(specialitiesSet);
-		vetService.saveVet(vet);
-		
-	}
+    public void saveSpecialties(Vet vet, List<String> specialties) throws DataAccessException {
+        Set<Specialty> specialitiesSet = new HashSet<>();
+        for (String specialty : specialties) {
+            Specialty S = this.specRepository.findSpecialty(specialty);
+            specialitiesSet.add(S);
+        }
+        vet.setSpecialtiesInternal(specialitiesSet);
+        vetService.saveVet(vet);
+    }
 	
 }

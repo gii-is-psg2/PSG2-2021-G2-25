@@ -15,4 +15,8 @@ public interface SpecialtyRepository extends Repository<Specialty, Integer>{
 	
 	@Query("SELECT specialty FROM Specialty specialty")
 	public Collection<Specialty> findSpecialtys();
+	
+	
+	@Query("SELECT specialty FROM Specialty specialty WHERE specialty.name LIKE ?1")
+    public Specialty findSpecialty(String s);
 }

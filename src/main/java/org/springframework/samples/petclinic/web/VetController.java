@@ -84,7 +84,6 @@ public class VetController {
 	public String initCreationForm(Map<String, Object> model) {
 		Vet vet = new Vet();
 		model.put("vet", vet);
-		model.put("specialties",getAllSpecialtys());
 
 		return VIEWS_VET_CREATE_FORM;
 	}
@@ -102,16 +101,14 @@ public class VetController {
 	}
 	
 	@ModelAttribute("specialties")
-    public Collection<String> getAllSpecialtys() {
-        List<String> c = this.specService.findAllSpecialtys().stream().map(x -> x.getName()).collect(Collectors.toList());
-        return c;
+    public Collection<Specialty> getAllSpecialtys() {
+		return this.specService.findAllSpecialtys();
     }
 	
 	@GetMapping(value = "/vet/{vetId}/edit")
 	public String initUpdateVetForm(@PathVariable("vetId") int vetId, Model model) {
 		Vet vet = this.vetService.findVetById(vetId);
 		model.addAttribute(vet);
-		model.addAttribute(getAllSpecialtys());
 		return VIEWS_VET_CREATE_FORM;
 	}
 
