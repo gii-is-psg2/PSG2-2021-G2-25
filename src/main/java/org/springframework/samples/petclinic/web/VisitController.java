@@ -95,11 +95,11 @@ public class VisitController {
 		return "visitList";
 	}
 	
-	@GetMapping("/visits/{visitId}/delete")
-	public String deleteVisit(Map<String, Object> model, @PathVariable("visitId") int visitId) {
+	@GetMapping("owners/{ownerId}/visits/{visitId}/delete")
+	public String deleteVisit(Map<String, Object> model, @PathVariable("visitId") int visitId,  @PathVariable("ownerId") int ownerId) {
 		Visit visit = this.visitService.findVisitById(visitId);
 		this.visitService.deleteVisit(visit);
-		return "redirect:/owners";
+		return "redirect:/owners/{ownerId}";
 	}
 
 }
