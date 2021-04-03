@@ -15,30 +15,30 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.Collection;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.service.VetService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-
-import java.util.Collection;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.springframework.beans.BeanUtils;
-import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.VisitService;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Juergen Hoeller
@@ -52,12 +52,14 @@ public class PetController {
 	private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
 
 	private final PetService petService;
-        private final OwnerService ownerService;
+	private final OwnerService ownerService;
+	private final VisitService visitService;
 
 	@Autowired
-	public PetController(PetService petService, OwnerService ownerService) {
+	public PetController(PetService petService, OwnerService ownerService, VisitService visitService) {
 		this.petService = petService;
-                this.ownerService = ownerService;
+		this.ownerService = ownerService;
+		this.visitService = visitService;
 	}
 
 	@ModelAttribute("types")
@@ -155,6 +157,13 @@ public class PetController {
     	public String deletePet(Map<String, Object> model, @PathVariable("petId") int petId) {
     		Pet pet = this.petService.findPetById(petId);
     		this.petService.deletePet(pet);
+    		return "redirect:/owners/{ownerId}";
+    	}
+    	
+    	@GetMapping("/pets/{petId}/visits/{visitId}/delete")
+    	public String deleteVisit(@PathVariable("petId") int petId, 
+    			@PathVariable("visitId") int visitId,  @PathVariable("ownerId") int ownerId) {
+    		this.visitService.deleteVisit(visitId, petId);
     		return "redirect:/owners/{ownerId}";
     	}
 

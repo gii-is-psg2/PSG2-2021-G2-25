@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.service;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Visit;
@@ -10,24 +12,29 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class VisitService {
 
-	private VisitRepository visitRepository;
-	
+    private VisitRepository visitRepository;
 
-	@Autowired
-	public VisitService(
-			VisitRepository visitRepository) {
-		this.visitRepository = visitRepository;
-	}
-	
-	@Transactional
-	public void deleteVisit(Visit visit) throws DataAccessException {
-		visitRepository.delete(visit);
-	}
-	@Transactional
-	public Visit findVisitById(int id) throws DataAccessException {
-		return visitRepository.findById(id);
-	
-	}
-	
-	
+    @Autowired
+    public VisitService(VisitRepository visitRepository) {
+        this.visitRepository = visitRepository;
+    }
+
+    @Transactional
+    public void saveVisit(Visit visit) throws DataAccessException {
+        visitRepository.save(visit);
+    }
+
+    public Collection<Visit> findVisitsByPetId(int petId) {
+        return visitRepository.findByPetId(petId);
+    }
+
+    @Transactional
+    public void deleteVisit(Integer visitId, Integer petId) throws DataAccessException {
+        visitRepository.deleteById(visitId);
+    }
+
+    @Transactional(readOnly = true)
+    public Visit findVisitById(int id) throws DataAccessException {
+        return visitRepository.findById(id).get();
+    }
 }

@@ -23,7 +23,6 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.PetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,14 +39,14 @@ public class PetService {
 
 	private PetRepository petRepository;
 
-	private VisitRepository visitRepository;
+	private VisitService visitService;
 
 	private OwnerService ownerService;
 
 	@Autowired
-	public PetService(PetRepository petRepository, VisitRepository visitRepository, OwnerService ownerService) {
+	public PetService(PetRepository petRepository, VisitService visitService, OwnerService ownerService) {
 		this.petRepository = petRepository;
-		this.visitRepository = visitRepository;
+		this.visitService = visitService;
 		this.ownerService = ownerService;
 	}
 
@@ -58,7 +57,7 @@ public class PetService {
 
 	@Transactional
 	public void saveVisit(Visit visit) throws DataAccessException {
-		visitRepository.save(visit);
+		visitService.saveVisit(visit);
 	}
 
 	@Transactional(readOnly = true)
@@ -76,14 +75,12 @@ public class PetService {
 	}
 
 	public Collection<Visit> findVisitsByPetId(int petId) {
-		return visitRepository.findByPetId(petId);
+		return visitService.findVisitsByPetId(petId);
 	}
 
 	@Transactional
 	public void deletePet(Pet pet) throws DataAccessException {
 		ownerService.deleteOwnerPet(pet.getOwner(), pet);
-		System.out.println("jajjajjasjsjsjsjssjdjhasdfiudisfidufwdhsfhwdfibiwfowbfiwyeboewfewiyfweufohewfbeiwfiu");
 		petRepository.delete(pet);
 	}
-
 }
