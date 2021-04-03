@@ -68,6 +68,14 @@ public class OwnerService {
 	}		
 	
 	@Transactional
+	public Integer getSessionId() {
+		return ownerRepository.ownerId(userService.obtenerUsername());
+	}
+	
+	@Transactional(readOnly = true)
+	public Owner findSessionOwner() throws DataAccessException {
+		return findOwnerById(getSessionId());
+	}
 	public void deleteOwner(Owner owner) throws DataAccessException {
 		ownerRepository.delete(owner);
 	}
@@ -76,6 +84,4 @@ public class OwnerService {
 	public void deleteOwnerPet(Owner owner, Pet pet) throws DataAccessException {
 		owner.removePet(pet);
 	}
-	
-
 }

@@ -19,27 +19,31 @@
 @spring-grey:       #838789;
 @spring-light-grey: #f1f1f1;
 @spring-light-red: 	#F8151D;
+@spring-background: #e8cb9a;
+@spring-menu-active: 	#a06c3f;
+@spring-menu-selection: 	#b88b5c;
+@spring-menu: #65350f;
 
-@body-bg:                           @spring-light-grey;
+@body-bg:                           @spring-background;
 @text-color:                        @spring-brown;
-@link-color:                        @spring-dark-green;
-@link-hover-color:                  @spring-dark-green;
+@link-color:                        @spring-menu-selection;
+@link-hover-color:                  @spring-menu-selection;
 
 @navbar-default-link-color:         @spring-light-grey;
 @navbar-default-link-active-color:  @spring-light-grey;
 @navbar-default-link-hover-color:   @spring-light-grey;
-@navbar-default-link-hover-bg:      @spring-green;
+@navbar-default-link-hover-bg:      @spring-menu-selection;
 @navbar-default-toggle-icon-bar-bg: @spring-light-grey;
 @navbar-default-toggle-hover-bg:    transparent;
-@navbar-default-link-active-bg:     @spring-light-red;
+@navbar-default-link-active-bg:     @spring-menu-active;
 
 @border-radius-base:             0;
 @border-radius-large:            0;
 @border-radius-small:            0;
 
 @btn-default-color:              @spring-light-grey;
-@btn-default-bg:                 @spring-brown;
-@btn-default-border:             @spring-green;
+@btn-default-bg:                 @spring-menu;
+@btn-default-border:             @spring-menu;
 
 @nav-tabs-active-link-hover-color:        @spring-light-grey;
 @nav-tabs-active-link-hover-bg:           @spring-brown;
@@ -51,7 +55,7 @@
 @table-border-color:                      @spring-brown;
 
 .table > thead > tr > th {
-  background-color: lighten(@spring-brown, 3%);
+  background-color: lighten(@spring-menu, 3%);
   color: @spring-light-grey;
 }
 

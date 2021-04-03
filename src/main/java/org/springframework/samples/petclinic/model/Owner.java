@@ -62,6 +62,9 @@ public class Owner extends Person {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<Pet> pets;
+  
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+	private List<Booking> bookings;
 
 	//
 	@OneToOne(cascade = CascadeType.ALL)
@@ -147,6 +150,14 @@ public class Owner extends Person {
 			}
 		}
 		return null;
+	}
+	
+	public List<Booking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
 	}
 
 	/**
