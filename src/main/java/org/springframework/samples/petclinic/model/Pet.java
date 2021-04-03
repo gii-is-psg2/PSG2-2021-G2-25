@@ -25,7 +25,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -58,7 +57,7 @@ public class Pet extends NamedEntity {
 	@JoinColumn(name = "owner_id")
 	private Owner owner;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
 	private Set<Visit> visits;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
@@ -116,5 +115,8 @@ public class Pet extends NamedEntity {
 
 	public void setBokkings(List<Booking> bokkings) {
 		this.bokkings = bokkings;
+    
+	public void setVisits(Set<Visit> visits) {
+		this.visits = visits;
 	}
 }
