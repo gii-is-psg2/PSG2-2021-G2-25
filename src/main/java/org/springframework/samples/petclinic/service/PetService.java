@@ -85,7 +85,7 @@ public class PetService {
 		return petRepository.findPetsByOwner(ownerService.getSessionId());
 	}
 
-}
+
 	@Transactional
 	public void deletePet(Pet pet) throws DataAccessException {
 		ownerService.deleteOwnerPet(pet.getOwner(), pet);

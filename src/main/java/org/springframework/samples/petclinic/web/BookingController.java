@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -78,6 +79,13 @@ public class BookingController {
 			vista = "redirect:/bookings/";
 		}
 		return vista;
+	}
+	
+	@GetMapping(value = "/delete/{bookingId}")
+	public String deleteBooking(Map<String, Object> model, @PathVariable("bookingId") int bookingId) {
+		Booking booking = this.bookingService.findBookingById(bookingId);
+		this.bookingService.deleteBooking(booking);
+		return "redirect:/bookings";
 	}
 
 }

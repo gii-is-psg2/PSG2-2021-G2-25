@@ -4,6 +4,7 @@ package org.springframework.samples.petclinic.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Booking;
 import org.springframework.samples.petclinic.repository.BookingRepository;
 import org.springframework.samples.petclinic.service.exceptions.BookingProhibitedException;
@@ -49,4 +50,14 @@ public class BookingService {
 	public List<Booking> findBookingsByOwner() {
 		return bookingRepository.findBookingsByOwner(ownerService.findSessionOwner());
 	}	
+	
+	@Transactional()
+	public void deleteBooking(Booking booking){
+		bookingRepository.delete(booking);
+	}
+	
+	@Transactional(readOnly = true)
+	public Booking findBookingById(int bookingId) throws DataAccessException{
+		return this.bookingRepository.findBookingById(bookingId);
+	}
 }

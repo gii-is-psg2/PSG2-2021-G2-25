@@ -30,6 +30,8 @@
                     </c:forEach>
                     <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
                 </td>
+                    <sec:authorize access="hasAuthority('admin')">
+                    
                 <td>
                 	<spring:url value="/vet/{vetId}/edit" var="editUrl">
         				<spring:param name="vetId" value="${vet.id}"/>
@@ -40,6 +42,7 @@
 							<spring:param name="vetId" value="${vet.id}" />
 						</spring:url> <a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">DeleteVet</a>
 					</td>
+						</sec:authorize>
             </tr>
         </c:forEach>
         </tbody>

@@ -41,6 +41,12 @@
 	                <td>
 	                    <c:out value="${booking.room}"/>
 	                </td>
+	                <td>
+	                	<spring:url value="/bookings/delete/{bookingId}" var="deleteUrl">
+							<spring:param name="bookingId" value="${booking.id}" />
+						</spring:url> 
+						<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete Booking</a>
+	                </td>
 	            </tr>
 	        </c:forEach>
 	        </tbody>
