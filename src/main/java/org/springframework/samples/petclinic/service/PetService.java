@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -23,7 +24,6 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.PetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
 import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,25 +39,26 @@ import org.springframework.util.StringUtils;
 public class PetService {
 
 	private PetRepository petRepository;
-	
-	private VisitRepository visitRepository;
-	
+
+	private VisitService visitService;
+
+	private OwnerService ownerService;
 
 	@Autowired
-	public PetService(PetRepository petRepository,
-			VisitRepository visitRepository) {
+	public PetService(PetRepository petRepository, VisitService visitService, OwnerService ownerService) {
 		this.petRepository = petRepository;
-		this.visitRepository = visitRepository;
+		this.visitService = visitService;
+		this.ownerService = ownerService;
 	}
 
 	@Transactional(readOnly = true)
 	public Collection<PetType> findPetTypes() throws DataAccessException {
 		return petRepository.findPetTypes();
 	}
-	
+
 	@Transactional
 	public void saveVisit(Visit visit) throws DataAccessException {
-		visitRepository.save(visit);
+		visitService.saveVisit(visit);
 	}
 
 	@Transactional(readOnly = true)
@@ -67,16 +68,27 @@ public class PetService {
 
 	@Transactional(rollbackFor = DuplicatedPetNameException.class)
 	public void savePet(Pet pet) throws DataAccessException, DuplicatedPetNameException {
-			Pet otherPet=pet.getOwner().getPetwithIdDifferent(pet.getName(), pet.getId());
-            if (StringUtils.hasLength(pet.getName()) &&  (otherPet!= null && otherPet.getId()!=pet.getId())) {            	
-            	throw new DuplicatedPetNameException();
-            }else
-                petRepository.save(pet);                
+		Pet otherPet = pet.getOwner().getPetwithIdDifferent(pet.getName(), pet.getId());
+		if (StringUtils.hasLength(pet.getName()) && (otherPet != null && otherPet.getId() != pet.getId())) {
+			throw new DuplicatedPetNameException();
+		} else
+			petRepository.save(pet);
 	}
 
-
+	@Transactional(readOnly = true)
 	public Collection<Visit> findVisitsByPetId(int petId) {
-		return visitRepository.findByPetId(petId);
+		return visitService.findVisitsByPetId(petId);
+	}
+  
+	@Transactional(readOnly = true)
+	public List<Pet> findPetsByOwner() {
+		return petRepository.findPetsByOwner(ownerService.getSessionId());
 	}
 
+
+	@Transactional
+	public void deletePet(Pet pet) throws DataAccessException {
+		ownerService.deleteOwnerPet(pet.getOwner(), pet);
+		petRepository.delete(pet);
+	}
 }

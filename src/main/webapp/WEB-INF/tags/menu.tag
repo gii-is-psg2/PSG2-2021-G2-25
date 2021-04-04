@@ -39,7 +39,13 @@
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Veterinarios/as</span>
 				</petclinic:menuItem>
-
+				
+				<petclinic:menuItem active="${name eq 'bookings'}" url="/bookings/"
+					title="Bookings">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Bookings</span>
+				</petclinic:menuItem>
+				
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="Errores">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
