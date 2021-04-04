@@ -14,7 +14,7 @@
     </jsp:attribute>
     <jsp:body>
         <h2>
-            <c:if test="${pet['new']}">Nueva </c:if> mascota
+            <c:if test="${pet['new']}">Nueva </c:if> Mascota
         </h2>
         <form:form modelAttribute="pet"
                    class="form-horizontal">

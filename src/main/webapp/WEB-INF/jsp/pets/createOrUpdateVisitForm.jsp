@@ -14,7 +14,7 @@
         </script>
     </jsp:attribute>
     <jsp:body>
-        <h2><c:if test="${visit['new']}">Nueva </c:if>visita</h2>
+        <h2><c:if test="${visit['new']}">Nueva </c:if>Visita</h2>
 
         <b>Mascota</b>
         <table class="table table-striped">
@@ -49,7 +49,7 @@
         </form:form>
 
         <br/>
-        <b>Previous Visits</b>
+        <b>Visitas previas</b>
         <table class="table table-striped">
             <tr>
                 <th>Fecha</th>

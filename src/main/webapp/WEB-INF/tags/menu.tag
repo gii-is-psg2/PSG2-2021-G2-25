@@ -43,7 +43,7 @@
 				<petclinic:menuItem active="${name eq 'bookings'}" url="/bookings/"
 					title="Bookings">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Bookings</span>
+					<span>Reservas</span>
 				</petclinic:menuItem>
 				
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"

@@ -6,21 +6,21 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="bookings">
-    <h2>My bookings</h2>
+    <h2>Mis reservas</h2>
 
 	<c:if test="${bookings.size() == 0}">
-		<p>Oops, there aren't bookings...!</p>
+		<p>Oops, ¡no hay reservas!</p>
 		<br>
 	</c:if>
 	<c:if test="${bookings.size() != 0}">
 	    <table id="bookingsTable" class="table table-striped">
 	        <thead>
 	        <tr>
-	            <th>Pet Name</th>
-	            <th>Pet Type</th>
-	            <th>Initial Date</th>
-	            <th>End Date</th>
-	            <th>Room</th>
+	            <th>Nombre mascota</th>
+	            <th>Tipo mascota</th>
+	            <th>Fecha de inicio</th>
+	            <th>Fecha de fin</th>
+	            <th>Habitación</th>
 	        </tr>
 	        </thead>
 	        <tbody>
@@ -45,7 +45,7 @@
 	                	<spring:url value="/bookings/delete/{bookingId}" var="deleteUrl">
 							<spring:param name="bookingId" value="${booking.id}" />
 						</spring:url> 
-						<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Delete Booking</a>
+						<a href="${fn:escapeXml(deleteUrl)}" class="btn btn-default">Borrar reserva</a>
 	                </td>
 	            </tr>
 	        </c:forEach>
@@ -53,6 +53,6 @@
 	    </table>
     </c:if>
 	<a style="text-decoration:none;" href="/bookings/new">
-		<button class="btn btn-default" type="submit">Create a new booking</button>
+		<button class="btn btn-default" type="submit">Realizar una nueva reserva</button>
 	</a>
 </petclinic:layout>
