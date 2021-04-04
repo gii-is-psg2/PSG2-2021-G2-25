@@ -115,6 +115,7 @@ public class Pet extends NamedEntity {
 
 	public void setBokkings(List<Booking> bokkings) {
 		this.bokkings = bokkings;
+	}
     
 	public void setVisits(Set<Visit> visits) {
 		this.visits = visits;
