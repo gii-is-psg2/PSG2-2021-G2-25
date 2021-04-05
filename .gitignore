@@ -21,3 +21,4 @@ bin/.settings/org.eclipse.jdt.core.prefs
 bin/.settings/org.eclipse.core.resources.prefs
 
 bin/target/classes/META-INF/MANIFEST.MF
+/bin/

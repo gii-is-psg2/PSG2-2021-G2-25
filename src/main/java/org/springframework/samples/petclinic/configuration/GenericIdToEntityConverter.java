@@ -50,7 +50,7 @@ public final class GenericIdToEntityConverter implements ConditionalGenericConve
 
         Object entity = entityManager.find(targetType.getType(), id);
         if (entity == null) {
-            log.info("Did not find an entity with id {} of type {}", id,  targetType.getType());
+            log.info("No se encontró una entidad con la id {} de tipo {}", id,  targetType.getType());
             return null;
         }
 
