@@ -38,12 +38,10 @@ public class SpecialtyService {
 	@Transactional
     public void saveSpecialties(Vet vet, List<String> specialties) throws DataAccessException {
         Set<Specialty> specialitiesSet = new HashSet<>();
-        if (specialties != null) {
-        	 for (String specialty : specialties) {
-                 Specialty S = this.specRepository.findSpecialty(specialty);
-                 specialitiesSet.add(S);
-             }
-        }    	
+        for (String specialty : specialties) {
+            Specialty S = this.specRepository.findSpecialty(specialty);
+            specialitiesSet.add(S);
+        }
         vet.setSpecialtiesInternal(specialitiesSet);
         vetService.saveVet(vet);
     }
