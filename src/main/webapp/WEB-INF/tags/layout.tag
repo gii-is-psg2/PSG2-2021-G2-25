@@ -7,6 +7,7 @@
 
 <!doctype html>
 <html>
+<meta charset="UTF-8">
 <petclinic:htmlHeader/>
 
 <body>

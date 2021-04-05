@@ -14,7 +14,7 @@
 				href="<spring:url value="/" htmlEscape="true" />"><span></span></a>
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target="#main-navbar">
-				<span class="sr-only"><os-p>Toggle navigation</os-p></span> <span
+				<span class="sr-only"><os-p>Alternar navegación</os-p></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
@@ -23,31 +23,31 @@
 			<ul class="nav navbar-nav">
 
 				<petclinic:menuItem active="${name eq 'home'}" url="/"
-					title="home page">
+					title="Página de inicio">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-					<span>Home</span>
+					<span>Inicio</span>
 				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
-					title="find owners">
+					title="Encontrar propietarios/as">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Find owners</span>
+					<span>Encontrar propietarios/as</span>
 				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"
-					title="veterinarians">
+					title="Veterinarios/as">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Veterinarians</span>
+					<span>Veterinarios/as</span>
 				</petclinic:menuItem>
 				
 				<petclinic:menuItem active="${name eq 'bookings'}" url="/bookings/"
 					title="Bookings">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Bookings</span>
+					<span>Reservas</span>
 				</petclinic:menuItem>
 				
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
-					title="trigger a RuntimeException to see how it is handled">
+					title="Errores">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 					<span>Error</span>
 				</petclinic:menuItem>
@@ -59,8 +59,8 @@
 
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
-					<li><a href="<c:url value="/login" />">Login</a></li>
-					<li><a href="<c:url value="/users/new" />">Register</a></li>
+					<li><a href="<c:url value="/login" />">Acceder</a></li>
+					<li><a href="<c:url value="/users/new" />">Registrarse</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -83,7 +83,7 @@
 											</p>
 											<p class="text-left">
 												<a href="<c:url value="/logout" />"
-													class="btn btn-primary btn-block btn-sm">Logout</a>
+													class="btn btn-primary btn-block btn-sm">Cerrar sesión</a>
 											</p>
 										</div>
 									</div>

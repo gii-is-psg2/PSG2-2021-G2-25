@@ -3,6 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
+<script type="text/javascript">
+
+
+</script>
+
+<div id="content">
 <petclinic:layout pageName="home">
     <h2><fmt:message key="welcome"/></h2>
     <div class="row">
@@ -12,3 +18,4 @@
         </div>
     </div>
 </petclinic:layout>
+</div>
