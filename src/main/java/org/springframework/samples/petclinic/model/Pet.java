@@ -61,7 +61,7 @@ public class Pet extends NamedEntity {
 	private Set<Visit> visits;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
-	private List<Booking> bokkings;
+	private List<Booking> bookings;
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
@@ -109,12 +109,12 @@ public class Pet extends NamedEntity {
 		visit.setPet(this);
 	}
 
-	public List<Booking> getBokkings() {
-		return bokkings;
+	public List<Booking> getBookings() {
+		return bookings;
 	}
 
-	public void setBokkings(List<Booking> bokkings) {
-		this.bokkings = bokkings;
+	public void setBookings(List<Booking> bookings) {
+		this.bookings = bookings;
 	}
     
 	public void setVisits(Set<Visit> visits) {

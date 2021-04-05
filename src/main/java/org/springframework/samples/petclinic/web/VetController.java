@@ -24,7 +24,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Specialty;
-import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.SpecialtyService;
@@ -37,7 +36,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -97,12 +95,12 @@ public class VetController {
 	}
   
 	@PostMapping(value = "/vets/new")
-	public String processCreationForm(@Valid Vet newVet, BindingResult result, @RequestParam List<String> specialties) {
+	public String processCreationForm(@Valid Vet newVet, BindingResult result, @RequestParam(required=false) List<String> specialties) {
 		if (result.hasErrors()) {
 			return VIEWS_VET_CREATE_FORM;
 		}
 		else {
-			//creating owner, user, and authority			
+			//creating owner, user, and authority	
 			this.specService.saveSpecialties(newVet, specialties);
 			return "redirect:/vets";
 		}
@@ -122,7 +120,7 @@ public class VetController {
 
 	@PostMapping(value = "/vet/{vetId}/edit")
 	public String processUpdateVetForm(@Valid Vet vet, BindingResult result,
-			@PathVariable("vetId") int vetId,  @RequestParam List<String> specialties) {
+			@PathVariable("vetId") int vetId,  @RequestParam(required=false) List<String> specialties) {
 		if (result.hasErrors()) {
 			return VIEWS_VET_CREATE_FORM;
 		}
