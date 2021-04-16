@@ -15,11 +15,14 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.util.Pair;
+import org.springframework.samples.petclinic.model.AdoptionApplication;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
@@ -91,8 +94,18 @@ public class PetService {
 		petRepository.delete(pet);
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Pet> findAllPets(){
 		return petRepository.findAllPets();
+	}
+	
+	@Transactional(readOnly = true)
+	public Pair<Boolean, List<AdoptionApplication>> petInAdoption(Integer petId){
+		Boolean inAdoption = (petRepository.petInAdoption(petId) != 0) ? true : false;
+		List<AdoptionApplication> applicants = new ArrayList<>();
+		if(inAdoption) {
+			applicants = petRepository.getApplicantsOfAdoption(petId);
+		}
+		return Pair.of(inAdoption, applicants);
 	}
 }

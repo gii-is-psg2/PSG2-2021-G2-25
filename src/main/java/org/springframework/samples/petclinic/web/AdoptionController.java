@@ -41,13 +41,11 @@ public class AdoptionController {
 	@GetMapping(value = { "/{petId}/sendRequest"})
 	public String sendRequestOfAdoption(Map<String, Object> model, @PathVariable("petId") int petId, final Principal principal) {
 		Owner ownerActual = ownerService.findSessionOwner();
-		List<Owner> applicants = adoptionService.findApplicants();
 		Pet pet = petService.findPetById(petId);
 		Owner owner = ownerService.findOwnerById(pet.getOwner().getId());
 		if(ownerActual.equals(owner)) {
 			return "exception";
 		}
-		applicants.add(owner);
 		return "adoptions/sendRequest";
 	}
 	

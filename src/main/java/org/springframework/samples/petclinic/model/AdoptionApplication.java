@@ -1,13 +1,10 @@
 package org.springframework.samples.petclinic.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,21 +22,16 @@ public class AdoptionApplication extends BaseEntity{
 	@JoinColumn(name = "owner_id")
 	private Owner owner;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "application_applicants", joinColumns = @JoinColumn(name = "application_id"),
-			inverseJoinColumns = @JoinColumn(name = "owner_id"))
-	private List<Owner> applicants;
-	
 	@Column(name = "description")
     @Size(min = 10, max = 200)
 	private String description;
 	
 	@Column(name = "status")
+	@Enumerated(EnumType.STRING)
 	@NotNull
-	private Boolean status;
+	private Status status;
 	
 	@Column(name = "available")
-	@NotNull
 	private Boolean available;
 
 	public Pet getPet() {
@@ -58,14 +50,6 @@ public class AdoptionApplication extends BaseEntity{
 		this.owner = owner;
 	}
 
-	public List<Owner> getApplicants() {
-		return applicants;
-	}
-
-	public void setApplicants(List<Owner> applicants) {
-		this.applicants = applicants;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -74,11 +58,19 @@ public class AdoptionApplication extends BaseEntity{
 		this.description = description;
 	}
 
-	public Boolean getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Boolean getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(Boolean available) {
+		this.available = available;
 	}
 }

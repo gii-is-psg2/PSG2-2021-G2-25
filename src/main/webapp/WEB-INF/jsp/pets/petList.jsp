@@ -39,17 +39,6 @@
 	                <td>
 	                    <c:out value="${pet.owner.firstName} ${pet.owner.lastName}"/>
 	                </td>
-	                
-	      
-	<!--
-	                <td> 
-	                    <c:out value="${owner.user.username}"/> 
-	                </td>
-	                <td> 
-	                   <c:out value="${owner.user.password}"/> 
-	                </td> 
-	-->
-	                
 	            </tr>
 	        </c:forEach>
 	        </tbody>

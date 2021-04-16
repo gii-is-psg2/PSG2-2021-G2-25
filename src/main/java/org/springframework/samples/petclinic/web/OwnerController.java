@@ -22,6 +22,8 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
+import org.springframework.samples.petclinic.model.AdoptionApplication;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
@@ -166,7 +168,10 @@ public class OwnerController {
 	@GetMapping(value = "/owners/pet/{petId}")
 	public String petDetails(@PathVariable("petId") int petId, ModelMap model) {
 		Pet pet = petService.findPetById(petId);
+		Pair<Boolean, List<AdoptionApplication>> aux = petService.petInAdoption(petId);
 		model.addAttribute("pet", pet);
+		model.addAttribute("inAdoption", aux.getFirst());
+		model.addAttribute("applicants", aux.getSecond());		
 		return "pets/petDetails";
 	}
 
