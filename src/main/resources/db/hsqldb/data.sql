@@ -95,5 +95,5 @@ INSERT INTO visits(id,pet_id,visit_date,description) VALUES (2, 8, '2013-01-02',
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (3, 8, '2013-01-03', 'neutered');
 INSERT INTO visits(id,pet_id,visit_date,description) VALUES (4, 7, '2013-01-04', 'spayed');
 
-INSERT INTO applications(id, pet_id, owner_id, description, status) VALUES (1, 1, 1, 'Mascota en adopción', true);
-INSERT INTO applications(id, pet_id, owner_id, description, status) VALUES (2, 2, 2, 'No debo salir en adopción', false);
+INSERT INTO applications(id, available, description, status, owner_id, pet_id) VALUES (1, true, 'Me gustan las mascotas y tengo un gran jardín', true, 1, 1);
+INSERT INTO applications(id, available, description, status, owner_id, pet_id) VALUES (2, false, 'Aún no he tenido ninguna mascota y me gustaría tener alguna a la que cuidar', false, 2, 2);

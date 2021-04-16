@@ -16,6 +16,7 @@
         <tr>
             <th>Nombre mascota</th>
             <th>Dueño</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>

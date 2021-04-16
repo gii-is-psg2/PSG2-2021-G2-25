@@ -37,6 +37,10 @@ public class AdoptionApplication extends BaseEntity{
 	@Column(name = "status")
 	@NotNull
 	private Boolean status;
+	
+	@Column(name = "available")
+	@NotNull
+	private Boolean available;
 
 	public Pet getPet() {
 		return pet;
