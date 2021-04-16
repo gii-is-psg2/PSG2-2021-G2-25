@@ -76,6 +76,7 @@ public class OwnerService {
 	public Owner findSessionOwner() throws DataAccessException {
 		return findOwnerById(getSessionId());
 	}
+	
 	public void deleteOwner(Owner owner) throws DataAccessException {
 		ownerRepository.delete(owner);
 	}

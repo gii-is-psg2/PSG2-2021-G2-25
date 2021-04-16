@@ -28,11 +28,13 @@
 					<span>Inicio</span>
 				</petclinic:menuItem>
 
-				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
-					title="Encontrar propietarios/as">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Encontrar propietarios/as</span>
-				</petclinic:menuItem>
+				<sec:authorize access="hasAuthority('admin')">
+					<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
+						title="Encontrar propietarios/as">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						<span>Encontrar propietarios/as</span>
+					</petclinic:menuItem>
+				</sec:authorize>
 
 				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"
 					title="Veterinarios/as">
@@ -40,11 +42,19 @@
 					<span>Veterinarios/as</span>
 				</petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'bookings'}" url="/bookings/"
-					title="Bookings">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Reservas</span>
-				</petclinic:menuItem>
+				<sec:authorize access="hasAuthority('owner')">
+					<petclinic:menuItem active="${name eq 'bookings'}" url="/bookings/"
+						title="Bookings">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Reservas</span>
+					</petclinic:menuItem>
+				
+					<petclinic:menuItem active="${name eq 'pets'}" url="/owners/pets"
+						title="My pets">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Mis mascotas</span>
+					</petclinic:menuItem>
+				</sec:authorize>
 				
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="Errores">
