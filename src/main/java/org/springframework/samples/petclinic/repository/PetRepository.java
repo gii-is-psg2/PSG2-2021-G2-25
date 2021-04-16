@@ -63,5 +63,8 @@ public interface PetRepository extends Repository<Pet, Integer> {
 	public Pet findById(@Param("id") int id);
 
 	void delete(Pet pet);
+	
+	@Query("Select u from Pet u")
+	List<Pet> findAllPets();
 
 }
