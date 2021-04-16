@@ -35,6 +35,6 @@ In the retrospective meeting, the team has a discussion about those results.
 | Day           |    Jesusjbs   |     Marce97    |    Ferrabled   |    Vicsorvaz   |   Dancasnar1   |
 | ------------- | ------------- | -------------  | -------------  | -------------  | -------------  |
 | Day 1         |    :smile:    | :neutral_face: |    :worried:   | :neutral_face: |    :fearful:   |
-| Day 2         | :neutral_face:|        -       |        -       |        -       |         -      |
+| Day 2         | :neutral_face:|        -       |        -       |        -       |    :smiley:    |
 | Day 3         |               |                |                |                |                |
 | Day 4         |               |                |                |                |                |
