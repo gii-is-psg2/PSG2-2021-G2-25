@@ -15,14 +15,12 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.util.Pair;
-import org.springframework.samples.petclinic.model.AdoptionApplication;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Visit;
@@ -82,7 +80,7 @@ public class PetService {
 	public Collection<Visit> findVisitsByPetId(int petId) {
 		return visitService.findVisitsByPetId(petId);
 	}
-  
+
 	@Transactional(readOnly = true)
 	public List<Pet> findPetsByOwner() {
 		return petRepository.findPetsByOwner(ownerService.getSessionId());
@@ -93,19 +91,18 @@ public class PetService {
 		ownerService.deleteOwnerPet(pet.getOwner(), pet);
 		petRepository.delete(pet);
 	}
-	
+
 	@Transactional(readOnly = true)
-	public List<Pet> findAllPets(){
+	public List<Pet> findAllPets() {
 		return petRepository.findAllPets();
 	}
-	
-	@Transactional(readOnly = true)
-	public Pair<Boolean, List<AdoptionApplication>> petInAdoption(Integer petId){
-		Boolean inAdoption = (petRepository.petInAdoption(petId) != 0) ? true : false;
-		List<AdoptionApplication> applicants = new ArrayList<>();
-		if(inAdoption) {
-			applicants = petRepository.getApplicantsOfAdoption(petId);
-		}
-		return Pair.of(inAdoption, applicants);
+
+	@Transactional
+	public void transferPet(Integer petId, Integer ownerId) {
+		Pet pet = findPetById(petId);
+		Owner owner = ownerService.findOwnerById(ownerId);
+		pet.setOwner(owner);
+		ownerService.deleteOwnerPet(owner, pet);
 	}
+	
 }

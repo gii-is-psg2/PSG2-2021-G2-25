@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.service.AdoptionService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,4 +50,11 @@ public class AdoptionController {
 		return "adoptions/sendRequest";
 	}
 	
+	@GetMapping("/{petId}/{decision}/{applicantId}")
+	public String petsInAdoptionList(@PathVariable("petId") int petId, @PathVariable("applicantId") int applicantId, 
+			@PathVariable("decision") String decision, ModelMap model) {
+		
+		adoptionService.resolveApplication(petId, applicantId, decision);
+		return decision.equals("accept") ? "redirect:/owners/pets" : "redirect:/owners/pet/{petId}";
+	}
 }

@@ -68,10 +68,4 @@ public interface PetRepository extends Repository<Pet, Integer> {
 	@Query("Select u from Pet u")
 	List<Pet> findAllPets();
 
-	@Query("Select count(u) from AdoptionApplication u where u.pet.id = :petId and u.available = true")
-	Integer petInAdoption(@Param("petId") Integer petId);
-	
-	@Query("Select u from AdoptionApplication u where u.pet.id = :petId and u.available = true")
-	List<AdoptionApplication> getApplicantsOfAdoption(@Param("petId") Integer petId);
-
 }

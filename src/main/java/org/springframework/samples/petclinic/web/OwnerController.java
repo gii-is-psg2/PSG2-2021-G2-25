@@ -26,6 +26,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.samples.petclinic.model.AdoptionApplication;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.service.AdoptionService;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
@@ -54,11 +55,15 @@ public class OwnerController {
 
 	private final OwnerService ownerService;
 	private final PetService petService;
+	private final AdoptionService adoptionService;
+	
 
 	@Autowired
-	public OwnerController(OwnerService ownerService, PetService petService, UserService userService, AuthoritiesService authoritiesService) {
+	public OwnerController(OwnerService ownerService, PetService petService, AdoptionService adoptionService, 
+			UserService userService, AuthoritiesService authoritiesService) {
 		this.ownerService = ownerService;
 		this.petService = petService;
+		this.adoptionService = adoptionService;
 	}
 
 	@InitBinder
@@ -167,9 +172,8 @@ public class OwnerController {
 	
 	@GetMapping(value = "/owners/pet/{petId}")
 	public String petDetails(@PathVariable("petId") int petId, ModelMap model) {
-		Pet pet = petService.findPetById(petId);
-		Pair<Boolean, List<AdoptionApplication>> aux = petService.petInAdoption(petId);
-		model.addAttribute("pet", pet);
+		Pair<Boolean, List<AdoptionApplication>> aux = adoptionService.petInAdoption(petId);
+		model.addAttribute("pet", aux.getSecond().get(0).getPet());
 		model.addAttribute("inAdoption", aux.getFirst());
 		model.addAttribute("applicants", aux.getSecond());		
 		return "pets/petDetails";
