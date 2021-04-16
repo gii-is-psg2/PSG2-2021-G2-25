@@ -91,4 +91,9 @@ public class PetService {
 		ownerService.deleteOwnerPet(pet.getOwner(), pet);
 		petRepository.delete(pet);
 	}
+	
+	@Transactional
+	public List<Pet> findAllPets(){
+		return petRepository.findAllPets();
+	}
 }
