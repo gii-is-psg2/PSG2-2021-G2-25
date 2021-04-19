@@ -5,8 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.AdoptionApplication;
+import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Status;
 import org.springframework.samples.petclinic.repository.AdoptionRepository;
+import org.springframework.samples.petclinic.service.exceptions.AdoptionDuplicatedException;
+import org.springframework.samples.petclinic.service.exceptions.BookingProhibitedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,16 +19,19 @@ public class AdoptionService {
 
 	private AdoptionRepository adoptionRepository;
 	private PetService petService;
+	private OwnerService ownerService;
 
 	@Autowired
-	public AdoptionService(AdoptionRepository adoptionRepository, PetService petService) {
+	public AdoptionService(AdoptionRepository adoptionRepository, PetService petService
+			, OwnerService ownerService) {
 		this.adoptionRepository = adoptionRepository;
 		this.petService = petService;
+		this.ownerService = ownerService;
 	}
 
 	@Transactional(readOnly = true)
-	public List<AdoptionApplication> findPetsInAdoption() {
-		return adoptionRepository.findPetsInAdoption();
+	public List<Pet> findPetsInAdoption() {
+		return adoptionRepository.findPetsInAdoption(ownerService.findSessionOwner());
 	}
 
 	@Transactional(readOnly = true)
@@ -43,6 +50,7 @@ public class AdoptionService {
 
 	@Transactional()
 	public void resolveApplication(Integer petId, Integer applicantId, String decision) {
+		this.adoptionRepository.resolvedAdoptionApplicant(petId);
 		AdoptionApplication ap = adoptionRepository.findApplicationByOwnerAndPet(applicantId, petId);
 		if (decision.equals("accept")) {
 			ap.setAvailable(false);
@@ -51,5 +59,19 @@ public class AdoptionService {
 		} else {
 			ap.setStatus(Status.DENIED);
 		}
+	}
+	@Transactional()
+	public void sendAdoptionRequest(AdoptionApplication adoption, int petId) throws AdoptionDuplicatedException{
+		Pet pet = petService.findPetById(petId);
+		Owner owner = ownerService.findSessionOwner();
+		adoption.setAvailable(true);
+		adoption.setPet(pet);
+		adoption.setOwner(owner);
+		adoption.setStatus(Status.ON_HOLD);
+		Integer adoptionsOfPet = this.adoptionRepository.findNumberOfAdoptionsFromOwnerOfPet(owner, pet);
+		if(adoptionsOfPet != 0) {
+			throw new AdoptionDuplicatedException();
+		}
+		this.adoptionRepository.save(adoption);
 	}
 }

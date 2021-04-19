@@ -56,6 +56,14 @@
 					</petclinic:menuItem>
 				</sec:authorize>
 				
+				<sec:authorize access="hasAuthority('owner')">
+				<petclinic:menuItem active="${name eq 'adoptions'}" url="/adoptions/list"
+						title="Adopciones">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Adopciones</span>
+					</petclinic:menuItem>
+				</sec:authorize>
+				
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="Errores">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>

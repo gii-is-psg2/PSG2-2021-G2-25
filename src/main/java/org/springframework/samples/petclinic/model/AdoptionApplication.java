@@ -28,7 +28,6 @@ public class AdoptionApplication extends BaseEntity{
 	
 	@Column(name = "status")
 	@Enumerated(EnumType.STRING)
-	@NotNull
 	private Status status;
 	
 	@Column(name = "available")

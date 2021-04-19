@@ -10,16 +10,6 @@
 
 <petclinic:layout pageName="adoptions">
     <h2>
-        Envío de solicitud de adopción
+        Su solicitud se ha enviado correctamente
     </h2>
-                    <form:form modelAttribute="adoptionsApplication" class="form-horizontal" id="adoptions-form">
-        				<div class="form-group has-feedback">
-            				<petclinic:inputField label="Descripción" name="description"/>
-        				</div>
-    					<div class="form-group">
-            				<div class="col-sm-offset-2 col-sm-10">
-                        		<button class="btn btn-default" type="submit">Enviar solicitud</button>
-            				</div>
-       					 </div>
-        			</form:form>
 </petclinic:layout>
