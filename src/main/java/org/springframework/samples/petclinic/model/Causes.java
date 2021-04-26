@@ -1,5 +1,7 @@
 package org.springframework.samples.petclinic.model;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -18,7 +20,7 @@ public class Causes extends BaseEntity{
 	
 	@OneToMany
 	@JoinColumn(name = "donation_id")
-	private Donation donation;
+	private Collection<Donation> donation;
 
 	public String getName() {
 		return name;
@@ -44,12 +46,12 @@ public class Causes extends BaseEntity{
 		this.budgetTarget = budgetTarget;
 	}
 
-	public Donation getDonation() {
-		return donation;
-	}
-
-	public void setDonation(Donation donation) {
-		this.donation = donation;
-	}
+//	public Donation getDonation() {
+//		return donation;
+//	}
+//
+//	public void setDonation(Donation donation) {
+//		this.donation = donation;
+//	}
 	
 }

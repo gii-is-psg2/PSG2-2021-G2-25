@@ -1,5 +1,6 @@
 package org.springframework.samples.petclinic.model;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -49,4 +50,8 @@ public class User{
 	public void setEnabled(boolean value) {
 		this.enabled=value;
 	}
+	
+	//======= RELATION =========
+	@OneToMany
+	public List<Donation> donations;
 }
