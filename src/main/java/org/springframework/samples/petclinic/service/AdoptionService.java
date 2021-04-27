@@ -50,9 +50,9 @@ public class AdoptionService {
 
 	@Transactional()
 	public void resolveApplication(Integer petId, Integer applicantId, String decision) {
-		this.adoptionRepository.resolvedAdoptionApplicant(petId);
 		AdoptionApplication ap = adoptionRepository.findApplicationByOwnerAndPet(applicantId, petId);
 		if (decision.equals("accept")) {
+    		this.adoptionRepository.resolvedAdoptionApplicant(petId);
 			ap.setAvailable(false);
 			ap.setStatus(Status.ACCEPTED);
 			petService.transferPet(petId, applicantId);
