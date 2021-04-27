@@ -34,11 +34,12 @@ In the retrospective meeting, the team has a discussion about those results.
 
 | Day           |    Jesusjbs   |     Marce97    |    Ferrabled   |    Vicsorvaz   |   Dancasnar1   |
 | ------------- | ------------- | -------------  | -------------  | -------------  | -------------  |
-| 09/04/2021    |    :smile:    | :neutral_face: |    :worried:   | :neutral_face: |    :fearful:   |
+| 09/04/2021    |    :smiley:   | :neutral_face: |    :worried:   | :neutral_face: |    :fearful:   |
 | 11/04/2021    | :neutral_face:|        -       |        -       |        -       |        -       |
 | 16/04/2021    |   :smiley:    |        -       |        -       |        -       |    :smiley:    |
+| 18/04/2021    | :neutral_face:|        -       |        -       |        -       |        -       |
 | 22/04/2021    |       -       |        -       |    :smiley:    |        -       |        -       |
 | 23/04/2021    |   :smiley:    |    :smiley:    |    :smiley:    |     :smiley:   |    :smiley:    |
 | 24/04/2021    |       -       |    :smiley:    |    :smiley:    |     :smiley:   |    :smiley:    |
-| 27/04/2021    |       -       | :neutral_face: |    :smiley:    |         -      |       -        |
+| 27/04/2021    | :neutral_face:| :neutral_face: |    :smiley:    |         -      |       -        |
 
