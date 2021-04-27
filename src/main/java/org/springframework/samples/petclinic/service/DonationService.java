@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Causes;
+import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.DonationRepository;
@@ -43,7 +43,7 @@ public class DonationService {
 	}
 	
 	@Transactional
-	public void saveDonation(Donation donation, Causes cause, User user) throws DataAccessException {
+	public void saveDonation(Donation donation, Cause cause, User user) throws DataAccessException {
 		//CAUSE TARGET IS NOT REACHED
 		//if(cause.getBudgetTarget()< cause. + donation.getAmount())
 			donation.setDateOfDonation(LocalDate.now());

@@ -25,7 +25,7 @@ public class Donation extends BaseEntity{
 	// ========= RELATIONS =========
 
 	@ManyToOne
-	private Causes cause;
+	private Cause cause;
 	
 	@ManyToOne
 	private User client;
@@ -62,12 +62,12 @@ public class Donation extends BaseEntity{
 	}
 
 
-	public Causes getCause() {
+	public Cause getCause() {
 		return cause;
 	}
 
 
-	public void setCause(Causes cause) {
+	public void setCause(Cause cause) {
 		this.cause = cause;
 	}
 	  

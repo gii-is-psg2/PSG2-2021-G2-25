@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "causes")
-public class Causes extends BaseEntity{
+public class Cause extends BaseEntity{
 
 	private String name;
 	
@@ -18,12 +18,29 @@ public class Causes extends BaseEntity{
 	
 	private Integer budgetTarget;
 	
+	private Boolean targetReached;
+	
 	@OneToMany
-	@JoinColumn(name = "donation_id")
 	private Collection<Donation> donation;
 
 	public String getName() {
 		return name;
+	}
+
+	public Boolean getTargetReached() {
+		return targetReached;
+	}
+
+	public void setTargetReached(Boolean targetReached) {
+		this.targetReached = targetReached;
+	}
+
+	public Collection<Donation> getDonation() {
+		return donation;
+	}
+
+	public void setDonation(Collection<Donation> donation) {
+		this.donation = donation;
 	}
 
 	public void setName(String name) {
@@ -45,13 +62,5 @@ public class Causes extends BaseEntity{
 	public void setBudgetTarget(Integer budgetTarget) {
 		this.budgetTarget = budgetTarget;
 	}
-
-//	public Donation getDonation() {
-//		return donation;
-//	}
-//
-//	public void setDonation(Donation donation) {
-//		this.donation = donation;
-//	}
 	
 }

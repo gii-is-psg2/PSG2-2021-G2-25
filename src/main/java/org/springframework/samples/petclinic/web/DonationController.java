@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Causes;
+import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.samples.petclinic.service.DonationService;
 import org.springframework.stereotype.Controller;
@@ -64,7 +64,7 @@ public class DonationController {
 	
 	
 	@PostMapping(value = "/donation/new")
-	public String processCreationForm(@Valid Donation donation, BindingResult result, @RequestParam() Causes cause) {
+	public String processCreationForm(@Valid Donation donation, BindingResult result, @RequestParam() Cause cause) {
 		if (result.hasErrors()) {
 			return VIEWS_DONATION_CREATE_FORM;
 		}
