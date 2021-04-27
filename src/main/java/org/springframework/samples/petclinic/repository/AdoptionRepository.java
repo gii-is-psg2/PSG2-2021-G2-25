@@ -19,8 +19,8 @@ public interface AdoptionRepository extends CrudRepository<AdoptionApplication, 
 	@Query("Select count(u) from AdoptionApplication u where u.pet.id = :petId and u.available = true")
 	Integer petInAdoption(@Param("petId") Integer petId);
 
-	@Query("Select u from AdoptionApplication u where u.pet.id = :petId and u.available = true")
-	List<AdoptionApplication> getApplicantsOfAdoption(@Param("petId") Integer petId);
+	@Query("Select u from AdoptionApplication u where u.pet.id = :petId and u.available = true and u.owner != :owner")
+	List<AdoptionApplication> getApplicantsOfAdoption(@Param("petId") Integer petId, @Param("owner") Owner owner);
 
 	@Query("Select u from AdoptionApplication u where u.pet.id = :petId and u.owner.id = :applicantId")
 	AdoptionApplication findApplicationByOwnerAndPet(@Param("applicantId") Integer applicantId,

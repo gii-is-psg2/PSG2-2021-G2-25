@@ -3,7 +3,6 @@ package org.springframework.samples.petclinic.web;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -11,21 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.AdoptionApplication;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.Status;
-import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.service.AdoptionService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.samples.petclinic.service.exceptions.AdoptionDuplicatedException;
+import org.springframework.samples.petclinic.service.exceptions.AdoptionProhibitedException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/adoptions")
@@ -80,10 +76,22 @@ public class AdoptionController {
 	}
 	
 	@GetMapping("/{petId}/{decision}/{applicantId}")
-	public String petsInAdoptionList(@PathVariable("petId") int petId, @PathVariable("applicantId") int applicantId, 
+	public String resolveApplication(@PathVariable("petId") int petId, @PathVariable("applicantId") int applicantId, 
 			@PathVariable("decision") String decision, ModelMap model) {
 		
 		adoptionService.resolveApplication(petId, applicantId, decision);
 		return decision.equals("accept") ? "redirect:/owners/pets" : "redirect:/owners/pet/{petId}";
+	}
+	
+	@GetMapping("/{petId}")
+	public String putInAdoption(@PathVariable("petId") int petId, ModelMap model) {
+		
+		try {
+			adoptionService.putInAdoption(petId);
+		} catch (AdoptionProhibitedException e) {
+			model.put("message", "No puedes poner en adopción una mascota que no es tuya");
+			return "redirect:/owners/pet/{petId}";
+		}
+		return "redirect:/owners/pet/{petId}";
 	}
 }

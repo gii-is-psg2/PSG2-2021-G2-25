@@ -10,7 +10,7 @@ import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.Status;
 import org.springframework.samples.petclinic.repository.AdoptionRepository;
 import org.springframework.samples.petclinic.service.exceptions.AdoptionDuplicatedException;
-import org.springframework.samples.petclinic.service.exceptions.BookingProhibitedException;
+import org.springframework.samples.petclinic.service.exceptions.AdoptionProhibitedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,8 +42,8 @@ public class AdoptionService {
 	@Transactional(readOnly = true)
 	public List<AdoptionApplication> AdoptionApplicants(Integer petId) {
 		Boolean inAdoption = petInAdoption(petId);
-		List<AdoptionApplication> applicants = inAdoption ? adoptionRepository.getApplicantsOfAdoption(petId)
-				: new ArrayList<>();
+		List<AdoptionApplication> applicants = inAdoption ? 
+				adoptionRepository.getApplicantsOfAdoption(petId, ownerService.findSessionOwner()) : new ArrayList<>();
 
 		return applicants;
 	}
@@ -73,5 +73,23 @@ public class AdoptionService {
 			throw new AdoptionDuplicatedException();
 		}
 		this.adoptionRepository.save(adoption);
+	}
+
+	@Transactional()
+	public void putInAdoption(Integer petId) throws AdoptionProhibitedException{
+		Pet pet = petService.findPetById(petId);
+		Owner owner = ownerService.findSessionOwner();
+
+		if(!pet.getOwner().equals(owner)) {
+			throw new AdoptionProhibitedException();			
+		}
+		AdoptionApplication ap = new AdoptionApplication();
+		ap.setAvailable(true);
+		ap.setDescription("This is the description of a owner");
+		ap.setOwner(owner);
+		ap.setPet(pet);
+		ap.setStatus(Status.ON_HOLD);
+		
+		adoptionRepository.save(ap);
 	}
 }

@@ -17,6 +17,10 @@
 	        	var opcion = confirm('¿Seguro que desea rechazar esta solicitud de adopción?');
 	        	return opcion;
 	        }
+	        function putInAdoptionAlert() {
+	        	var opcion = confirm('¿Seguro que desea poner en adopción a esta mascota?');
+	        	return opcion;
+	        }
         </script>
     </jsp:attribute>
     <jsp:body>
@@ -94,6 +98,12 @@
 	    
 	    <c:if test="${!inAdoption}">
 		<!--     Colocar botón de Dar en adopción -->    
+			<spring:url value="/adoptions/{petId}" var="putInAdoptionUrl">
+				<spring:param name="petId" value="${pet.id}" />
+			</spring:url> 
+			<a onclick="return putInAdoptionAlert()" class="btn btn-default" href="${fn:escapeXml(putInAdoptionUrl)}">
+				Dar en adopción
+			</a>
 		</c:if>
 	</jsp:body>
 </petclinic:layout>
