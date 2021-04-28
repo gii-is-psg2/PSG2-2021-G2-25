@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class BookingService {
 
-	@Autowired
 	private BookingRepository bookingRepository;
 	private OwnerService ownerService;
 	private PetService petService;
