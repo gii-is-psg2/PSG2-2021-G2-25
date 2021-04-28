@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
+import org.springframework.samples.petclinic.service.SpecialtyService;
 import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -36,7 +37,10 @@ class VetControllerTests {
 
 	@MockBean
 	private VetService clinicService;
-
+	
+	@MockBean
+	private SpecialtyService specService;
+	
 	@Autowired
 	private MockMvc mockMvc;
 

@@ -66,15 +66,18 @@ public class BookingController {
 
 		String vista;
 		if (result.hasErrors()) {
+			booking.setInitDate(null);
+			booking.setEndDate(null);
 			model.put("message", "Please, select a valid room and a valid date.");
-			vista = "bookings/createBooking";
+			return createBooking(petService.findPetById(petId), model);
 		} else {
 			try {
 				this.bookingService.saveBooking(booking, petId);
 			} catch (BookingProhibitedException e) {
-
-				model.put("message", "This room is already reserved. Please, try another.");
-				return "bookings/createBooking";
+				booking.setInitDate(null);
+				booking.setEndDate(null);
+				model.put("message", "Esta habitación ya esta reservada o su mascota ya tiene una reserva. Por favor, pruebe otra habitación o día.");
+				return createBooking(petService.findPetById(petId), model);
 			}
 			vista = "redirect:/bookings/";
 		}
