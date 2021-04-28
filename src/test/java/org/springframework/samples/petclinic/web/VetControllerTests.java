@@ -40,7 +40,7 @@ class VetControllerTests {
 	
 	@MockBean
 	private SpecialtyService specService;
-
+  
 	@Autowired
 	private MockMvc mockMvc;
 
