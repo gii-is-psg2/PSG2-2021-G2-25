@@ -46,6 +46,12 @@
 					<span>Reservas</span>
 				</petclinic:menuItem>
 				
+				<petclinic:menuItem active="${name eq 'causes'}" url="/causes/"
+					title="Donar a causas">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Donar a causas</span>
+				</petclinic:menuItem>
+				
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="Errores">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
