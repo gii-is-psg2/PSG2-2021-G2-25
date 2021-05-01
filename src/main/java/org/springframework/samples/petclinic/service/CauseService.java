@@ -8,12 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.repository.CauseRepository;
+import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.stereotype.Service;
 @Service
 public class CauseService {
 	
-	@Autowired
 	private CauseRepository causeRepository;
+	private OwnerService ownerService;
+	
+	@Autowired
+	public CauseService(CauseRepository causeRepository, OwnerService ownerService) {
+		this.causeRepository = causeRepository;
+		this.ownerService = ownerService;
+	}
 	
 	@Transactional
 	public Iterable<Cause> findAll() {
@@ -37,6 +44,7 @@ public class CauseService {
 		} else {
 			cause.setTargetNotReached(false);
 		}
+		cause.setOwner(ownerService.findSessionOwner());
 		causeRepository.save(cause);
 	}
 

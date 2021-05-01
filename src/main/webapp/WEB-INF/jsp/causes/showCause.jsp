@@ -5,6 +5,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@	page contentType="text/html" pageEncoding="UTF-8"%>
 
 <petclinic:layout pageName="detailsCause">
 
@@ -17,15 +18,15 @@
             <td><b><c:out value="${cause.name}"/></b></td>
         </tr>
         <tr>
-            <th>Descripci&oacuten</th>
+            <th>Descripción</th>
             <td><c:out value="${cause.description}"/></td>
         </tr>
         <tr>
-            <th>Organizaci&oacuten beneficiaria</th>
+            <th>Organización beneficiaria</th>
             <td><c:out value="${cause.ong}"/></td>
         </tr>
        <tr>
-       		<th>Objetivo recaudaci&oacuten (&euro;)</th>
+       		<th>Objetivo recaudación (&euro;)</th>
        		 <td>
                     <c:out value="${cause.budgetTarget}"/>
              </td> 
@@ -43,7 +44,7 @@
                 <td>
                     <c:choose>
                         <c:when test="${cause.targetNotReached eq true}">
-                            S&iacute;
+                            Si
                         </c:when>
                         <c:otherwise>
                             No
@@ -58,7 +59,7 @@
             <spring:url value="/causes/{causeId}/newDonation" var="addUrl">
                 <spring:param name="causeId" value="${cause.id}"/>
             </spring:url>
-            <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">A&ntildeadir donaci&oacuten</a>
+            <a href="${fn:escapeXml(addUrl)}" class="btn btn-default">Añadir donación</a>
         </sec:authorize>
     </c:if>
 

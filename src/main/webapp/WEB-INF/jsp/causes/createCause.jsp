@@ -4,12 +4,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@	page contentType="text/html" pageEncoding="UTF-8"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 
 <petclinic:layout pageName="Causes">
     <jsp:body>
-        <h2>Nueva Causa</h2>
+        <h2>Crear una causa</h2>
          <c:choose>
         	<c:when test="${cause['new']}">
             	<c:set var="action" value="/causes/save"/>
@@ -63,7 +64,7 @@
                  
                  <spring:url value="/causes" var="causeUrl">
                  </spring:url>
-                 <a class="btn btn-default" href="${fn:escapeXml(causeUrl)}">Atr&aacutes</a>
+                 <a class="btn btn-default" href="${fn:escapeXml(causeUrl)}">Volver</a>
                 
                 </div>
               </div>

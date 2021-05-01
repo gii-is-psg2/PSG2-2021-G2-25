@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -7,6 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@	page contentType="text/html" pageEncoding="UTF-8"%>
 
 
 <petclinic:layout pageName="causes">
@@ -26,7 +25,7 @@
         <tr>
             <th style="width: 150px;">Nombre</th>
             <th style="width: 120px">Total recaudado (&euro;)</th>
-            <th style="width: 120px">Objetivo recaudación (&euro;)</th>
+            <th style="width: 120px">Objetivo recaudaciÃ³n (&euro;)</th>
             <th style="width: 120px">Acciones</th>  
               
         </tr>
@@ -62,7 +61,8 @@
                                     <spring:param name="causeId" value="${cause.id}"/>
                                 </spring:url>
                                 
-                        <%--        <c:if test="${cause.owner eq true}"> --%>
+                                <c:if test="${cause.owner.user.username eq username}">
+                                
                                 
                                 	<a class="btn btn-default"  href="${fn:escapeXml(causeUrl)}">Eliminar</a>
                                 
@@ -72,7 +72,7 @@
                                 
                                 	<a class="btn btn-default"  href="${fn:escapeXml(causeUrl)}">Editar</a>
                                 	
-                               <%--   </c:if> --%>
+                                 </c:if>  
                                  
                             </sec:authorize>
                         </c:if>
@@ -85,5 +85,5 @@
     
     <spring:url value="/causes/new" var="newCause">
     	</spring:url>
-	<a class="btn btn-default" href="${fn:escapeXml(newCause)}">Añadir causa</a>
+	<a class="btn btn-default" href="${fn:escapeXml(newCause)}">AÃ±adir causa</a>
 </petclinic:layout>

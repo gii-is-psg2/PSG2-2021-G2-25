@@ -38,18 +38,22 @@ public class CauseController {
 	private final DonationService donationService;
 
 	private final UserService userService;
+	
+	private final OwnerService ownerService;
 
 	@Autowired
 	public CauseController(CauseService causeService, DonationService donationService, UserService userService, OwnerService ownerService){
 		this.causeService=causeService;
 		this.donationService=donationService;
 		this.userService=userService;
+		this.ownerService=ownerService;
 	}
 	
 	@GetMapping()
 	public String causeActiveList(ModelMap modelMap) {
 		List<Cause> causes = causeService.findCauseByTargetNotReached(true);
 		modelMap.addAttribute("causes",causes);
+		modelMap.addAttribute("username",ownerService.findSessionOwner().getUser().getUsername());
 		return VIEW_LIST_CAUSE;
 	}
 

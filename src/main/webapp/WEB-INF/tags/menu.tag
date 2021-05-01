@@ -27,7 +27,7 @@
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					<span>Inicio</span>
 				</petclinic:menuItem>
-
+				
 				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
 					title="Encontrar propietarios/as">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>

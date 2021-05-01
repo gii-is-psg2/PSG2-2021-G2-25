@@ -1,13 +1,11 @@
 package org.springframework.samples.petclinic.model;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -36,7 +34,9 @@ public class Cause extends BaseEntity{
 	
 	private Double totalAmount = 0.0;
 	
-	//private Owner owner;
+	@ManyToOne
+	@JoinColumn(name="owner_id")
+	private Owner owner;
 	
 	
 //	@OneToMany
@@ -93,13 +93,13 @@ public class Cause extends BaseEntity{
 		this.budgetTarget = budgetTarget;
 	}
 	
-//	public Owner getOwner() {
-//		return owner;
-//	}
-//	
-//	public void setOwner(Owner owner) {
-//		this.owner = owner;
-//	}
+	public Owner getOwner() {
+		return owner;
+	}
+	
+	public void setOwner(Owner owner) {
+		this.owner = owner;
+	}
 	
 	
 	public Double getTotalAmount(){
