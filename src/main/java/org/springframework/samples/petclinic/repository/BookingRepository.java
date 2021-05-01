@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.Booking;
 import org.springframework.samples.petclinic.model.Owner;
+import org.springframework.samples.petclinic.model.Pet;
 
 public interface BookingRepository extends CrudRepository<Booking, Integer> {
 
@@ -18,5 +19,9 @@ public interface BookingRepository extends CrudRepository<Booking, Integer> {
 	
 	@Query("SELECT b from Booking b where b.id LIKE ?1")
 	Booking findBookingById(int bookingId) throws DataAccessException;
+	
+	
+	@Query("select u from Booking u where u.pet = :pet")
+	List<Booking> mascotaReserva(@Param("pet") Pet pet) throws DataAccessException;
 	
 }

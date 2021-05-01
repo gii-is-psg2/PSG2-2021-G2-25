@@ -7,9 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "bookings")
@@ -17,10 +20,14 @@ public class Booking extends BaseEntity{
 
 	@Column(name = "initialDate")
 	@NotNull
+	@Future
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate initDate;
 
 	@Column(name = "endDate")
 	@NotNull
+	@Future
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate endDate;
 	
 	@Column(name = "room")

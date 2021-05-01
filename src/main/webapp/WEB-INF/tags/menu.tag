@@ -3,7 +3,6 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
 <%@ attribute name="name" required="true" rtexprvalue="true"
 	description="Name of the active menu: home, owners, vets or error"%>
 
@@ -22,40 +21,48 @@
 		<div class="navbar-collapse collapse" id="main-navbar">
 			<ul class="nav navbar-nav">
 
-				<petclinic:menuItem active="${name eq 'home'}" url="/"
-					title="Página de inicio">
-					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-					<span>Inicio</span>
-				</petclinic:menuItem>
-
-				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
-					title="Encontrar propietarios/as">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-					<span>Encontrar propietarios/as</span>
-				</petclinic:menuItem>
-
+				<sec:authorize access="hasAuthority('admin')">
+					<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
+						title="Encontrar propietarios/as">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						<span>Encontrar propietarios/as</span>
+					</petclinic:menuItem>
+				</sec:authorize>
 				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"
 					title="Veterinarios/as">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span>Veterinarios/as</span>
 				</petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'bookings'}" url="/bookings/"
-					title="Bookings">
+				<sec:authorize access="hasAuthority('owner')">
+					<petclinic:menuItem active="${name eq 'bookings'}" url="/bookings/"
+						title="Bookings">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Reservas</span>
+					</petclinic:menuItem>
+				
+					<petclinic:menuItem active="${name eq 'pets'}" url="/owners/pets"
+						title="My pets">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Mis mascotas</span>
+					</petclinic:menuItem>
+				</sec:authorize>
+				
+				<sec:authorize access="hasAuthority('owner')">
+				<petclinic:menuItem active="${name eq 'adoptions'}" url="/adoptions/list"
+						title="Adopciones">
+						<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+						<span>Adopciones</span>
+					</petclinic:menuItem>
+				</sec:authorize>
+				
+				<petclinic:menuItem active="${name eq 'causes'}" url="/causes/"
+					title="Donar a causas">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-					<span>Reservas</span>
+					<span>Donar a causas</span>
 				</petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
-					title="Errores">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-					<span>Error</span>
-				</petclinic:menuItem>
-
 			</ul>
-
-
-
 
 			<ul class="nav navbar-nav navbar-right">
 				<sec:authorize access="!isAuthenticated()">
@@ -90,27 +97,9 @@
 								</div>
 							</li>
 							<li class="divider"></li>
-<!-- 							
-                            <li> 
-								<div class="navbar-login navbar-login-session">
-									<div class="row">
-										<div class="col-lg-12">
-											<p>
-												<a href="#" class="btn btn-primary btn-block">My Profile</a>
-												<a href="#" class="btn btn-danger btn-block">Change
-													Password</a>
-											</p>
-										</div>
-									</div>
-								</div>
-							</li>
--->
 						</ul></li>
 				</sec:authorize>
 			</ul>
 		</div>
-
-
-
 	</div>
 </nav>

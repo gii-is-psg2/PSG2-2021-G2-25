@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -38,9 +37,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/users/new").permitAll()
 				.antMatchers("/admin/**").hasAnyAuthority("admin")
 				.antMatchers("/owners/**").hasAnyAuthority("owner","admin")	
+				.antMatchers("/owners/pets").hasAnyAuthority("owner")	
 				.antMatchers("/bookings/**").hasAnyAuthority("owner")
+				.antMatchers("/donation/**").authenticated()
+				.antMatchers("/adoptions/**").hasAnyAuthority("owner", "admin")
 				.antMatchers("/vets/**").authenticated()
 				.antMatchers("/vet/**").authenticated()
+				.antMatchers("/causes/new").hasAnyAuthority("owner","admin")
+				.antMatchers("/causes/**/**").hasAnyAuthority("owner","admin")
+
 
 				.anyRequest().denyAll()
 				.and()

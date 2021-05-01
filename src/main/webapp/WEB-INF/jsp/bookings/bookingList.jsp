@@ -21,6 +21,7 @@
 	            <th>Fecha de inicio</th>
 	            <th>Fecha de fin</th>
 	            <th>Habitación</th>
+	            <th></th>
 	        </tr>
 	        </thead>
 	        <tbody>
