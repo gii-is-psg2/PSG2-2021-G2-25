@@ -9,11 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
-import org.springframework.samples.petclinic.model.Donation;
-import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.CauseService;
-import org.springframework.samples.petclinic.service.DonationService;
-import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,29 +27,24 @@ public class CauseController {
 
 	private static final String VIEW_LIST_CAUSE="causes/causesList";
 
-	private static final String VIEW_CREATE_DONATION = "donation/createDonationForm";	
-
 	private final CauseService causeService;
 
-	private final DonationService donationService;
-
 	private final UserService userService;
-	
-	private final OwnerService ownerService;
+
 
 	@Autowired
-	public CauseController(CauseService causeService, DonationService donationService, UserService userService, OwnerService ownerService){
+	public CauseController(CauseService causeService, UserService userService){
 		this.causeService=causeService;
-		this.donationService=donationService;
+
 		this.userService=userService;
-		this.ownerService=ownerService;
+
 	}
 	
 	@GetMapping()
 	public String causeActiveList(ModelMap modelMap) {
 		List<Cause> causes = causeService.findCauseByTargetNotReached(true);
 		modelMap.addAttribute("causes",causes);
-		modelMap.addAttribute("username",ownerService.findSessionOwner().getUser().getUsername());
+		modelMap.addAttribute("username",userService.obtenerUsername());
 		return VIEW_LIST_CAUSE;
 	}
 
@@ -92,32 +83,6 @@ public class CauseController {
 		
 	}
 	
-	
-	@GetMapping(path="{causeId}/newDonation")
-	public String newDonation(@PathVariable("causeId") int causeId, ModelMap modelMap) {
-		modelMap.addAttribute("donation", new Donation());
-		Cause cause = this.causeService.findCauseById(causeId);
-		modelMap.addAttribute("cause", cause);
-		return VIEW_CREATE_DONATION;
-	}
-
-	@PostMapping(path="{causeId}/saveDonation")
-	public String saveDonation(@PathVariable("causeId") final int causeId, @Valid Donation donation, BindingResult result, ModelMap modelMap) {
-		
-		if(result.hasErrors()) {
-			modelMap.addAttribute("donation", donation);
-			return VIEW_CREATE_DONATION;
-		}else {
-			Cause cause = this.causeService.findCauseById(causeId);
-			donation.setCause(cause);
-			User user=userService.getUser();
-			//donation.setClient(user);
-			donationService.saveDonation(donation, cause, user);
-			causeService.save(cause);
-			return "redirect:/causes";
-		}
-		
-	}
 	
 	@GetMapping(path="{causeId}/delete")
 	public String deleteCause(@PathVariable("causeId") int causeId, ModelMap modelMap) {

@@ -21,11 +21,11 @@
 	    <h2 class = "page-title" id = "nuevo-dueno-title">
 	        <c:if test="${donation['new']}"> Nueva </c:if> Donación
 	    </h2>
-	    <form:form modelAttribute="donation" class="form-horizontal" id="add-donation-form">
+	    <form:form modelAttribute="donation" class="form-horizontal" id="add-donation-form" action = "/donation/${causeId}/new">
+	    	
 	        <div class="form-group has-feedback">
 	        	<fmt:message key="createOrUpdateDonationForm.label.client" var = "client"/>
 	            <petclinic:inputField label="Cantidad" name="quantity"/>
-	            <petclinic:inputField label="Usuario" name="client"/>
 	        </div>
 	        <div class="form-group">
 	            <div class="col-sm-offset-2 col-sm-10">

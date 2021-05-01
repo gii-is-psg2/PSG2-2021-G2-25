@@ -9,6 +9,7 @@ import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.DonationRepository;
+import org.springframework.samples.petclinic.service.exceptions.DonationProhibitedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,15 +17,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class DonationService {
 
 	
-	private DonationRepository donRepository;
-	
-//	@Autowired
-//	private CausesService causeService;
+	private DonationRepository donRepository;	
+	private UserService userService;
+
 	
 	//CAUSES
 	@Autowired
-	public DonationService(DonationRepository donRepository) {
+	public DonationService(DonationRepository donRepository, UserService userService) {
 		this.donRepository = donRepository;
+		this.userService = userService;
 	}
 	
 	@Transactional(readOnly= true)
@@ -43,16 +44,24 @@ public class DonationService {
 	}
 	
 	@Transactional
-	public void saveDonation(Donation donation, Cause cause, User user) throws DataAccessException {
-		//CAUSE TARGET IS NOT REACHED
-		//if(cause.getBudgetTarget()< cause. + donation.getAmount())
+	public void saveDonation(Donation donation, Cause cause) throws DonationProhibitedException {
+		if(cause.getBudgetTarget() > (cause.getTotalAmount() + donation.getQuantity())) {
 			donation.setDateOfDonation(LocalDate.now());
 			donation.setCause(cause);
-			donation.setClient(user);
+			String username = userService.obtenerUsername();
+			User user = userService.findUser(username).get();
+			donation.setClient(user);			
 			donRepository.save(donation);
-		// } else {
-			//Set cause not active
-			//donation.setDonationDate(LocalDate.now());
-			//donationRepository.save(donation);	
+		 } else if(cause.getBudgetTarget() == (cause.getTotalAmount() + donation.getQuantity())) {
+			cause.setTargetNotReached(Boolean.FALSE);
+			donation.setDateOfDonation(LocalDate.now());
+			donation.setCause(cause);
+			String username = userService.obtenerUsername();
+			User user = userService.findUser(username).get();
+			donation.setClient(user);
+			donRepository.save(donation);	
+		 } else {
+			 throw new DonationProhibitedException();
+		 }
 	}
 }

@@ -9,26 +9,28 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.model.Donation;
+import org.springframework.samples.petclinic.service.CauseService;
 import org.springframework.samples.petclinic.service.DonationService;
+import org.springframework.samples.petclinic.service.exceptions.DonationProhibitedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class DonationController {
 	
 	
-	//private final CausesService causeService;
+	private final CauseService causeService;
 	private final DonationService donService;
 	
 	private static final String VIEWS_DONATION_CREATE_FORM = "donation/createDonationForm";
 	
-	//TODO CAUSES SERVICE
 	@Autowired
-	public DonationController(DonationService donService) {
+	public DonationController(DonationService donService, CauseService causeService) {
+		this.causeService = causeService;
 		this.donService = donService;
 	}
 	
@@ -53,27 +55,30 @@ public class DonationController {
 
 	
 	
-	@GetMapping(value = "/donation/new")
-	public String initCreationForm(Map<String, Object> model) {
+	@GetMapping(value = "/donation/{causeId}/new")
+	public String initCreationForm(Map<String, Object> model, @PathVariable("causeId") final int causeId) {
+		model.put("CauseId", causeId);
 		Donation donation = new Donation();
-		//TODO add donation to cause
 		model.put("donation", donation);
 
 		return VIEWS_DONATION_CREATE_FORM;
 	}
 	
 	
-	@PostMapping(value = "/donation/new")
-	public String processCreationForm(@Valid Donation donation, BindingResult result, @RequestParam() Cause cause) {
+	@PostMapping(value = "/donation/{causeId}/new")
+	public String processCreationForm(@Valid Donation donation, BindingResult result, @PathVariable("causeId") final int causeId) {
 		if (result.hasErrors()) {
 			return VIEWS_DONATION_CREATE_FORM;
-		}
-		else {
-			//TODO ADD USER 
-			//ADD DONATION TO CAUSE
-			this.donService.saveDonation(donation, cause, null );
-			int causeId = cause.getId();
-			return "redirect:/causes/"+ causeId;
+		} else {
+			Cause cause = causeService.findCauseById(causeId);
+			try {
+				this.donService.saveDonation(donation, cause);
+				return "redirect:/causes/"+ causeId;
+			} catch (DonationProhibitedException e) {
+				result.rejectValue("quantity", "Exceeded", "Valor objetivo sobrepasado, introduce una cantidad válida");
+				return VIEWS_DONATION_CREATE_FORM;
+			}
+			
 		}
 	}
 }

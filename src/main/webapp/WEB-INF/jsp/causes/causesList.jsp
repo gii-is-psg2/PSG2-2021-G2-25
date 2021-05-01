@@ -50,13 +50,13 @@
                         </spring:url>
                         <a class="btn btn-default"  href="${fn:escapeXml(detailsCause)}">Detalles</a>
                         <c:if test="${cause.targetNotReached eq true}">
-                            <sec:authorize access="hasAuthority('owner')">
-                                <spring:url value="/causes/{causeId}/newDonation" var="donationUrl">
+                            
+                                <spring:url value="/donation/{causeId}/new" var="donationUrl">
                                     <spring:param name="causeId" value="${cause.id}"/>
                                 </spring:url>
                                 
                                 <a class="btn btn-default"  href="${fn:escapeXml(donationUrl)}">Donar</a>
-                               
+                               <sec:authorize access="hasAuthority('owner')">
                                <spring:url value="/causes/{causeId}/delete" var="causeUrl">
                                     <spring:param name="causeId" value="${cause.id}"/>
                                 </spring:url>
@@ -82,8 +82,9 @@
         </c:forEach>
         </tbody>
     </table>
-    
+    <sec:authorize access="hasAuthority('owner')">
     <spring:url value="/causes/new" var="newCause">
     	</spring:url>
 	<a class="btn btn-default" href="${fn:escapeXml(newCause)}">Añadir causa</a>
+	</sec:authorize>
 </petclinic:layout>

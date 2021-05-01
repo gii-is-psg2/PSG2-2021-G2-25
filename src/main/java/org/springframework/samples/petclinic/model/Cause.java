@@ -31,16 +31,11 @@ public class Cause extends BaseEntity{
 	
 	@NotBlank
 	private String ong;
-	
-	private Double totalAmount = 0.0;
-	
+		
 	@ManyToOne
 	@JoinColumn(name="owner_id")
 	private Owner owner;
 	
-	
-//	@OneToMany
-//	private Collection<Donation> donation;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="cause")
 	private Collection<Donation> donations;
@@ -57,11 +52,11 @@ public class Cause extends BaseEntity{
 		this.targetNotReached = targetNotReached;
 	}
 
-	public Collection<Donation> getDonation() {
+	public Collection<Donation> getDonations() {
 		return donations;
 	}
 
-	public void setDonation(Collection<Donation> donation) {
+	public void setDonations(Collection<Donation> donation) {
 		this.donations = donation;
 	}
 
