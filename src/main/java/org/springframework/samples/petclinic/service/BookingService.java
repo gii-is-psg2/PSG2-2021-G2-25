@@ -1,6 +1,5 @@
 package org.springframework.samples.petclinic.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class BookingService {
 
-	@Autowired
 	private BookingRepository bookingRepository;
 	private OwnerService ownerService;
 	private PetService petService;
