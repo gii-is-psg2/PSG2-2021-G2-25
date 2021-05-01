@@ -16,7 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Donation extends BaseEntity{
 	
 	@NotNull
-	@Min(1)
+	@Min(0)
 	private Double quantity;
 	
 	@DateTimeFormat(pattern = "yyyy/MM/dd")

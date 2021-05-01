@@ -12,32 +12,30 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name = "causes")
-public class Cause extends BaseEntity{
-	
+public class Cause extends BaseEntity {
+
 	@NotBlank
 	private String name;
-	
+
 	@NotBlank
 	private String description;
-	
-	@Min(value=5,message="El mínimo objetivo es 5.")
+
+	@Min(value = 5, message = "El mínimo objetivo es 5.")
 	private Double budgetTarget;
-	
+
 	@NotNull
 	private Boolean targetNotReached = false;
-	
+
 	@NotBlank
 	private String ong;
-		
+
 	@ManyToOne
-	@JoinColumn(name="owner_id")
+	@JoinColumn(name = "owner_id")
 	private Owner owner;
-	
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="cause")
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cause")
 	private Collection<Donation> donations;
 
 	public String getName() {
@@ -63,11 +61,11 @@ public class Cause extends BaseEntity{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public void setOng(String ong) {
 		this.ong = ong;
 	}
-	
+
 	public String getOng() {
 		return ong;
 	}
@@ -87,26 +85,25 @@ public class Cause extends BaseEntity{
 	public void setBudgetTarget(Double budgetTarget) {
 		this.budgetTarget = budgetTarget;
 	}
-	
+
 	public Owner getOwner() {
 		return owner;
 	}
-	
+
 	public void setOwner(Owner owner) {
 		this.owner = owner;
 	}
-	
-	
-	public Double getTotalAmount(){
+
+	public Double getTotalAmount() {
 		Double sumDonations = 0.0;
-        if(donations != null && donations.size() > 0){
-            for (Donation donation : donations) {
-            	if(donation.getCause().getName().equals(name)) {
-            		sumDonations = sumDonations + donation.getQuantity();
-            	}
-            }
-        }
-        return sumDonations;
+		if (donations != null && donations.size() > 0) {
+			for (Donation donation : donations) {
+				if (donation.getCause().getName().equals(name)) {
+					sumDonations = sumDonations + donation.getQuantity();
+				}
+			}
+		}
+		return Math.round(sumDonations * 100.0) / 100.0;
 	}
-	
+
 }
