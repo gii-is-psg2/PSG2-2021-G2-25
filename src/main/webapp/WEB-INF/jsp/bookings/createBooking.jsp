@@ -11,15 +11,12 @@
 <petclinic:layout pageName="bookings">
     <jsp:attribute name="customScript">
         <script type="text/javascript">
+
         	$(function() {
-        		$("#datepicker").datepicker( {
-        		    format: "dd/mm/yy",
-        		    minViewMode: "days"
-        		});
-        		$("#datepicker1").datepicker( {
-        		    format: "dd/mm/yy",
-        		    minViewMode: "days"
-        		});
+                $("#initDate").datepicker({dateFormat: 'yy/mm/dd'});
+
+                $("#endDate").datepicker({dateFormat: 'yy/mm/dd'});
+
             });
         </script>
 		
@@ -56,10 +53,8 @@
 				    		</c:forEach>
 						</select>
 						<br>
-			            <label style="margin-top:10px" for="initDate">Fecha de inicio:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-						<input style="width:12%;margin-left:46%" type="text" class="form-control"  id="datepicker" name="initDate" value="${booking.initDate}" />
-			            <label style="margin-top:10px" for="endDate">Fecha de fin:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-						<input style="width:12%;margin-left:46%" type="text" class="form-control"  id="datepicker1" name="endDate" value="${booking.endDate}" />
+						<petclinic:inputField label="Fecha de inicio" name="initDate"/>
+						<petclinic:inputField label="Fecha de fin" name="endDate"/>
 			        </div>
 			        <div class="form-group">
 			        	<button class="btn btn-default" type="submit">Crear</button>

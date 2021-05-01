@@ -21,11 +21,13 @@ public class Booking extends BaseEntity{
 	@Column(name = "initialDate")
 	@NotNull
 	@Future
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate initDate;
 
 	@Column(name = "endDate")
 	@NotNull
 	@Future
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate endDate;
 	
 	@Column(name = "room")
