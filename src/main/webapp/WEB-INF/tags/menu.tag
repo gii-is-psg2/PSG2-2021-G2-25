@@ -14,7 +14,7 @@
 				href="<spring:url value="/" htmlEscape="true" />"><span></span></a>
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target="#main-navbar">
-				<span class="sr-only"><os-p>Alternar navegación</os-p></span> <span
+				<span class="sr-only"><os-p>Alternar navegaciÃ³n</os-p></span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
@@ -23,11 +23,10 @@
 			<ul class="nav navbar-nav">
 
 				<petclinic:menuItem active="${name eq 'home'}" url="/"
-					title="Página de inicio">
+					title="PÃ¡gina de inicio">
 					<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					<span>Inicio</span>
 				</petclinic:menuItem>
-
 				<sec:authorize access="hasAuthority('admin')">
 					<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
 						title="Encontrar propietarios/as">
@@ -35,7 +34,6 @@
 						<span>Encontrar propietarios/as</span>
 					</petclinic:menuItem>
 				</sec:authorize>
-
 				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"
 					title="Veterinarios/as">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
@@ -64,6 +62,12 @@
 					</petclinic:menuItem>
 				</sec:authorize>
 				
+				<petclinic:menuItem active="${name eq 'causes'}" url="/causes/"
+					title="Donar a causas">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span>Donar a causas</span>
+				</petclinic:menuItem>
+				
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="Errores">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
@@ -82,7 +86,7 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+						data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>Â 
 							<strong><sec:authentication property="name" /></strong> <span
 							class="glyphicon glyphicon-chevron-down"></span>
 					</a>
@@ -101,7 +105,7 @@
 											</p>
 											<p class="text-left">
 												<a href="<c:url value="/logout" />"
-													class="btn btn-primary btn-block btn-sm">Cerrar sesión</a>
+													class="btn btn-primary btn-block btn-sm">Cerrar sesiÃ³n</a>
 											</p>
 										</div>
 									</div>
