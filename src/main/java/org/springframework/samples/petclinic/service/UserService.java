@@ -77,4 +77,9 @@ public class UserService {
 	public String getAuthority(String username) {
 		return authorityRepository.getAuthority(username);
 	}
+	
+	@Transactional(readOnly=true)
+	public User getUser() {
+		return this.findUser(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+	}
 }
