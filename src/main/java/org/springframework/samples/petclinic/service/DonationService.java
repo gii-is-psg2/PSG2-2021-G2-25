@@ -49,17 +49,25 @@ public class DonationService {
 			donation.setDateOfDonation(LocalDate.now());
 			donation.setCause(cause);
 			String username = userService.obtenerUsername();
-			User user = userService.findUser(username).get();
-			donation.setClient(user);			
-			donRepository.save(donation);
+			
+			if (userService.findUser(username).isPresent()) { //bug fix
+				User user = userService.findUser(username).get();
+				donation.setClient(user);			
+				donRepository.save(donation);
+			}
+			
 		 } else if(cause.getBudgetTarget() == (cause.getTotalAmount() + donation.getQuantity())) {
 			cause.setTargetNotReached(Boolean.FALSE);
 			donation.setDateOfDonation(LocalDate.now());
 			donation.setCause(cause);
 			String username = userService.obtenerUsername();
-			User user = userService.findUser(username).get();
-			donation.setClient(user);
-			donRepository.save(donation);	
+			
+			if (userService.findUser(username).isPresent()) { //bug fix
+				User user = userService.findUser(username).get();
+				donation.setClient(user);			
+				donRepository.save(donation);
+			}
+			
 		 } else {
 			 throw new DonationProhibitedException();
 		 }
