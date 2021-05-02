@@ -158,7 +158,7 @@ public class OwnerController {
 	public String petDetails(@PathVariable("petId") int petId, ModelMap model) {
 		Pet pet = petService.findPetById(petId);
 		Boolean inAdoption = adoptionService.petInAdoption(petId);
-		List<AdoptionApplication> applicants = adoptionService.AdoptionApplicants(petId);
+		List<AdoptionApplication> applicants = adoptionService.adoptionApplicants(petId);
 		if(pet.getOwner() != ownerService.findSessionOwner()) {
 			return "redirect:/owners/pets";
 		}

@@ -36,16 +36,14 @@ public class AdoptionService {
 
 	@Transactional(readOnly = true)
 	public Boolean petInAdoption(Integer petId) {
-		return (adoptionRepository.petInAdoption(petId) != 0) ? true : false;
+		return (adoptionRepository.petInAdoption(petId) != 0);
 	}
 
 	@Transactional(readOnly = true)
-	public List<AdoptionApplication> AdoptionApplicants(Integer petId) {
-		Boolean inAdoption = petInAdoption(petId);
-		List<AdoptionApplication> applicants = inAdoption ? 
+	public List<AdoptionApplication> adoptionApplicants(Integer petId) {
+		boolean inAdoption = petInAdoption(petId);
+		return inAdoption ? 
 				adoptionRepository.getApplicantsOfAdoption(petId, ownerService.findSessionOwner()) : new ArrayList<>();
-
-		return applicants;
 	}
 
 	@Transactional()

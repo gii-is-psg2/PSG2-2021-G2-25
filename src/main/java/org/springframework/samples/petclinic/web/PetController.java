@@ -50,6 +50,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PetController {
 
 	private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
+	private static final String OWNERS_ID = "redirect:/owners/{ownerId}";
 
 	private final PetService petService;
 	private final OwnerService ownerService;
@@ -71,16 +72,6 @@ public class PetController {
 	public Owner findOwner(@PathVariable("ownerId") int ownerId) {
 		return this.ownerService.findOwnerById(ownerId);
 	}
-        
-        /*@ModelAttribute("pet")
-	public Pet findPet(@PathVariable("petId") Integer petId) {
-            Pet result=null;
-		if(petId!=null)
-                    result=this.clinicService.findPetById(petId);
-                else
-                    result=new Pet();
-            return result;
-	}*/
                 
 	@InitBinder("owner")
 	public void initOwnerBinder(WebDataBinder dataBinder) {
@@ -114,7 +105,7 @@ public class PetController {
                         result.rejectValue("name", "duplicate", "already exists");
                         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
                     }
-                    return "redirect:/owners/{ownerId}";
+                    return OWNERS_ID;
 		}
 	}
 
@@ -150,21 +141,21 @@ public class PetController {
                         result.rejectValue("name", "duplicate", "already exists");
                         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
                     }
-			return "redirect:/owners/{ownerId}";
+			return OWNERS_ID;
 		}
 	}
     	@GetMapping("/pets/{petId}/delete")
     	public String deletePet(Map<String, Object> model, @PathVariable("petId") int petId) {
     		Pet pet = this.petService.findPetById(petId);
     		this.petService.deletePet(pet);
-    		return "redirect:/owners/{ownerId}";
+    		return OWNERS_ID;
     	}
     	
     	@GetMapping("/pets/{petId}/visits/{visitId}/delete")
     	public String deleteVisit(@PathVariable("petId") int petId, 
     			@PathVariable("visitId") int visitId,  @PathVariable("ownerId") int ownerId) {
     		this.visitService.deleteVisit(visitId, petId);
-    		return "redirect:/owners/{ownerId}";
+    		return OWNERS_ID;
     	}
 
 }

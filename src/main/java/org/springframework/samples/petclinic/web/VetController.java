@@ -51,6 +51,7 @@ public class VetController {
 	private final SpecialtyService specService;
 	
 	private static final String VIEWS_VET_CREATE_FORM = "vets/createUpdateVet";
+	private static final String RED_VETS = "redirect:/vets";
 
 
 	@Autowired
@@ -91,7 +92,7 @@ public class VetController {
 	public String deleteVet(Map<String, Object> model, @PathVariable("vetId") int vetId) {
 		Vet vet = this.vetService.findVetById(vetId);
 		this.vetService.deleteVet(vet);
-		return "redirect:/vets";
+		return RED_VETS;
 	}
   
 	@PostMapping(value = "/vets/new")
@@ -102,7 +103,7 @@ public class VetController {
 		else {
 			//creating owner, user, and authority	
 			this.specService.saveSpecialties(newVet, specialties);
-			return "redirect:/vets";
+			return RED_VETS;
 		}
 	}
 	
@@ -129,7 +130,7 @@ public class VetController {
 			vet.setId(vetId);
 			
 			this.specService.saveSpecialties(vet, specialties);
-			return "redirect:/vets";
+			return RED_VETS;
 		}
 	}
 }

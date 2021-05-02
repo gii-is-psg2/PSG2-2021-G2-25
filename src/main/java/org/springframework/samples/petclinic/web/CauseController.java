@@ -23,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/causes")
 public class CauseController {
 
-	private static final String VIEW_CREATE_CAUSE="causes/createCause";
+	private static final String CREATE="causes/createCause";
 
-	private static final String VIEW_LIST_CAUSE="causes/causesList";
+	private static final String LIST="causes/causesList";
+	
+	private static final String CAUSE="cause";
 
 	private final CauseService causeService;
 
@@ -45,37 +47,37 @@ public class CauseController {
 		List<Cause> causes = causeService.findCauseByTargetNotReached(true);
 		modelMap.addAttribute("causes",causes);
 		modelMap.addAttribute("username",userService.obtenerUsername());
-		return VIEW_LIST_CAUSE;
+		return LIST;
 	}
 
 	@GetMapping(path="/inactive")
 	public String causeInactiveList(ModelMap modelMap) {
 		List<Cause> causes = causeService.findCauseByTargetNotReached(false);
 		modelMap.addAttribute("causes",causes);
-		return VIEW_LIST_CAUSE;
+		return LIST;
 	}
 
 	
 	@GetMapping(path="/{causeId}")
 	public String causeDetails(@PathVariable("causeId") final int causeId, ModelMap modelMap) {
 		Cause cause = causeService.findCauseById(causeId);
-		modelMap.addAttribute("cause",cause);
+		modelMap.addAttribute(CAUSE,cause);
 		return "causes/showCause";
 	}
 	
 	
 	@GetMapping(path="/new")
 	public String newCause(ModelMap modelMap) {
-		modelMap.addAttribute("cause", new Cause());
-		return VIEW_CREATE_CAUSE;
+		modelMap.addAttribute(CAUSE, new Cause());
+		return CREATE;
 	}
 	
 	@PostMapping(path="/save")
 	public String saveCause(@Valid Cause cause, BindingResult result, ModelMap modelMap) {
 		
 		if(result.hasErrors()) {
-			modelMap.addAttribute("cause",cause);
-			return VIEW_CREATE_CAUSE;
+			modelMap.addAttribute(CAUSE,cause);
+			return CREATE;
 		}else {
 			causeService.save(cause);
 			return "redirect:/causes";
@@ -86,7 +88,7 @@ public class CauseController {
 	
 	@GetMapping(path="{causeId}/delete")
 	public String deleteCause(@PathVariable("causeId") int causeId, ModelMap modelMap) {
-		String view =VIEW_LIST_CAUSE;
+		String view =LIST;
 		Optional<Cause> cause = Optional.of(causeService.findCauseById(causeId));
 		if(cause.isPresent()) {
 			causeService.delete(cause.get());
@@ -102,13 +104,13 @@ public class CauseController {
 	public String initUpdateCauseForm(@PathVariable("causeId") int causeId, ModelMap modelMap) {
 		Cause cause = this.causeService.findCauseById(causeId);
 		modelMap.addAttribute(cause);
-		return VIEW_CREATE_CAUSE;
+		return CREATE;
 	}
 	@PostMapping(path="{causeId}/save")
 	public String processUpdateCauseForm(@Valid Cause cause, BindingResult result, @PathVariable("causeId") int causeId) {
 		
 		if(result.hasErrors()) {
-			return VIEW_CREATE_CAUSE;
+			return CREATE;
 		}else {
 			Cause causeToUpdate = causeService.findCauseById(causeId);
 			BeanUtils.copyProperties(cause, causeToUpdate, "donations");
