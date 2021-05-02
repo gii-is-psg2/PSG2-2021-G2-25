@@ -1,7 +1,6 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -36,8 +35,7 @@ public class DonationController {
 	@GetMapping(value = { "/donations" })
 	public @ResponseBody Collection<Donation> showDonationList(Map<String, Object> model) {
 
-		Collection<Donation> donations = new HashSet<>();
-		donations = this.donService.findDonations();
+		Collection<Donation> donations = this.donService.findDonations();
 		return donations;
 
 	}
@@ -45,8 +43,8 @@ public class DonationController {
 	@GetMapping(value = { "causes/{causesId}/donations" })
 	public @ResponseBody Collection<Donation> showDonationForCauseList(Map<String, Object> model, Integer causeID) {
 
-		Collection<Donation> donations = new HashSet<>();
-		donations = this.donService.findDonationsForCause(causeID);
+		 
+		Collection<Donation> donations = this.donService.findDonationsForCause(causeID);
 		return donations;
 
 	}

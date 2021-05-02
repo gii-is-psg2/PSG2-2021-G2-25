@@ -53,7 +53,7 @@ public class UserService {
 	}
 
 	public Optional<User> findUser(String username) throws DataAccessException {
-		return (userRepository.findById(username).isPresent()) ? userRepository.findById(username) : null;
+		return (userRepository.findById(username).isPresent()) ? userRepository.findById(username) : Optional.empty();
 	}
 
 	public String obtenerUsername() {
@@ -80,6 +80,12 @@ public class UserService {
 	
 	@Transactional(readOnly=true)
 	public User getUser() {
-		return this.findUser(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+		User user = new User();
+		Optional<User> value = this.findUser(SecurityContextHolder.getContext().getAuthentication().getName());
+		if (value.isPresent()) { //bug fix
+			user = value.get();
+		}
+		return user;
+		
 	}
 }

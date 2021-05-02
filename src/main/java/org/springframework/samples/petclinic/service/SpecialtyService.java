@@ -39,8 +39,8 @@ public class SpecialtyService {
         Set<Specialty> specialitiesSet = new HashSet<>();
         if (specialties != null) {
         	 for (String specialty : specialties) {
-                 Specialty S = this.specRepository.findSpecialty(specialty);
-                 specialitiesSet.add(S);
+                 Specialty sp = this.specRepository.findSpecialty(specialty);
+                 specialitiesSet.add(sp);
              }
         }    	
         vet.setSpecialtiesInternal(specialitiesSet);

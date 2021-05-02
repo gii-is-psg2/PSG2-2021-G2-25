@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -35,6 +36,11 @@ public class VisitService {
 
     @Transactional(readOnly = true)
     public Visit findVisitById(int id) throws DataAccessException {
-        return visitRepository.findById(id).get();
+    	Visit visit = new Visit();
+		Optional<Visit> value = this.visitRepository.findById(id);
+		if (value.isPresent()) { //bug fix
+			visit = value.get();
+		}
+		return visit;
     }
 }

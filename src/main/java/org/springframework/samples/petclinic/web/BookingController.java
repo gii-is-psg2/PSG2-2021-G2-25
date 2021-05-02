@@ -26,6 +26,8 @@ public class BookingController {
 	
 	private final BookingService bookingService;
 	private final PetService petService;
+	private static final String MESSAGE = "message";
+	private static final String CREATE = "bookings/createBooking";
 
 	@Autowired
 	public BookingController(BookingService bookingService, PetService petService) {
@@ -46,18 +48,18 @@ public class BookingController {
 
 		List<Pet> pets = petService.findPetsByOwner();
 		model.addAttribute("pets", pets);
-		return "bookings/createBooking";
+		return CREATE;
 	}
 	
 	@PostMapping(value = "/new")
 	public String createBooking(@Valid Pet pet, ModelMap model) {
 		if(pet.getId() == null) {
-			model.put("message", "You must select a pet to continue.");
-			return "bookings/createBooking";
+			model.put(MESSAGE, "You must select a pet to continue.");
+			return CREATE;
 		}
 		model.addAttribute("booking", new Booking());
 		model.addAttribute("petId", pet.getId());		
-		return "bookings/createBooking";
+		return CREATE;
 	}
 
 	@PostMapping(value = "/new/{petId}")
@@ -68,7 +70,7 @@ public class BookingController {
 		if (result.hasErrors()) {
 			booking.setInitDate(null);
 			booking.setEndDate(null);
-			model.put("message", "Please, select a valid room and a valid date.");
+			model.put(MESSAGE, "Please, select a valid room and a valid date.");
 			return createBooking(petService.findPetById(petId), model);
 		} else {
 			try {
@@ -76,7 +78,7 @@ public class BookingController {
 			} catch (BookingProhibitedException e) {
 				booking.setInitDate(null);
 				booking.setEndDate(null);
-				model.put("message", "Esta habitación ya esta reservada o su mascota ya tiene una reserva. Por favor, pruebe otra habitación o día.");
+				model.put(MESSAGE, "Esta habitación ya esta reservada o su mascota ya tiene una reserva. Por favor, pruebe otra habitación o día.");
 				return createBooking(petService.findPetById(petId), model);
 			}
 			vista = "redirect:/bookings/";

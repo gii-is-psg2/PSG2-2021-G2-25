@@ -30,6 +30,8 @@ public class AdoptionController {
 	private final AdoptionService adoptionService;
 	private final PetService petService;
 	private final OwnerService ownerService;
+	private static final String MESSAGE = "message";
+	private static final String REDIRECT_PETID = "redirect:/owners/pet/{petId}";
 
 	@Autowired
 	public AdoptionController(AdoptionService adoptionService, PetService petService, OwnerService ownerService) {
@@ -64,14 +66,14 @@ public class AdoptionController {
 			@PathVariable("petId") int petId, ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("adoptionsApplication", ad);
-			model.put("message", "La descripción debe contener entre 10 y 200 caracteres");
+			model.put(MESSAGE, "La descripción debe contener entre 10 y 200 caracteres");
 			return "adoptions/sendRequest";
 		}
 		try {
 			this.adoptionService.sendAdoptionRequest(ad, petId);
 			return "/adoptions/confirmed";
 		} catch (AdoptionDuplicatedException e) {
-			model.put("message", "Ya has enviado una solicitud para esta mascota, no puedes solicitarla de nuevo");
+			model.put(MESSAGE, "Ya has enviado una solicitud para esta mascota, no puedes solicitarla de nuevo");
 			return petsInAdoptionList(model);
 		}
 	}
@@ -81,7 +83,7 @@ public class AdoptionController {
 			@PathVariable("decision") String decision, ModelMap model) {
 
 		adoptionService.resolveApplication(petId, applicantId, decision);
-		return decision.equals("accept") ? "redirect:/owners/pets" : "redirect:/owners/pet/{petId}";
+		return decision.equals("accept") ? "redirect:/owners/pets" : REDIRECT_PETID;
 	}
 
 	@GetMapping("/{petId}")
@@ -90,9 +92,9 @@ public class AdoptionController {
 		try {
 			adoptionService.putInAdoption(petId);
 		} catch (AdoptionProhibitedException e) {
-			model.put("message", "No puedes poner en adopción una mascota que no es tuya");
-			return "redirect:/owners/pet/{petId}";
+			model.put(MESSAGE, "No puedes poner en adopción una mascota que no es tuya");
+			return REDIRECT_PETID;
 		}
-		return "redirect:/owners/pet/{petId}";
+		return REDIRECT_PETID;
 	}
 }

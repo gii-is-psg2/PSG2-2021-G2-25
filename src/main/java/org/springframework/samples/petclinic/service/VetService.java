@@ -62,8 +62,6 @@ public class VetService {
 		
 		vetRepository.save(vet);		
 		//creating user
-		//vetRepository.saveUser(vet.getUser());
-		//creating authorities
-		//authoritiesService.saveAuthorities(owner.getUser().getUsername(), "owner");
+
 	}		
 }
