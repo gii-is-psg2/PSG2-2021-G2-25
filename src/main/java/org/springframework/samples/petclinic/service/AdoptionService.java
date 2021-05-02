@@ -41,8 +41,7 @@ public class AdoptionService {
 
 	@Transactional(readOnly = true)
 	public List<AdoptionApplication> adoptionApplicants(Integer petId) {
-		boolean inAdoption = petInAdoption(petId);
-		return inAdoption ? 
+		return petInAdoption(petId) ? 
 				adoptionRepository.getApplicantsOfAdoption(petId, ownerService.findSessionOwner()) : new ArrayList<>();
 	}
 
