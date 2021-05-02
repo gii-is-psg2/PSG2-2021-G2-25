@@ -30,62 +30,63 @@ public class AdoptionController {
 	private final AdoptionService adoptionService;
 	private final PetService petService;
 	private final OwnerService ownerService;
-	
+
 	@Autowired
 	public AdoptionController(AdoptionService adoptionService, PetService petService, OwnerService ownerService) {
-		this.adoptionService= adoptionService;
+		this.adoptionService = adoptionService;
 		this.petService = petService;
 		this.ownerService = ownerService;
 	}
-	
+
 	@GetMapping(value = { "/list" })
 	public String petsInAdoptionList(Map<String, Object> model) {
 		List<Pet> pets = adoptionService.findPetsInAdoption();
 		model.put("pets", pets);
 		return "adoptions/list";
 	}
-	
-	@GetMapping(value = { "/{petId}/sendRequest"})
-	public String initRequestOfAdoption(Map<String, Object> model, @PathVariable("petId") int petId, final Principal principal) {
+
+	@GetMapping(value = { "/{petId}/sendRequest" })
+	public String initRequestOfAdoption(Map<String, Object> model, @PathVariable("petId") int petId,
+			final Principal principal) {
 		AdoptionApplication adoptionsApplication = new AdoptionApplication();
 		Owner ownerActual = ownerService.findSessionOwner();
 		Pet pet = petService.findPetById(petId);
 		Owner owner = ownerService.findOwnerById(pet.getOwner().getId());
 		model.put("adoptionsApplication", adoptionsApplication);
-		if(ownerActual.equals(owner)) {
+		if (ownerActual.equals(owner)) {
 			return "exception";
 		}
 		return "adoptions/sendRequest";
 	}
-	
+
 	@PostMapping(value = "/{petId}/sendRequest")
 	public String processSendRequestForm(@Valid AdoptionApplication ad, BindingResult result,
 			@PathVariable("petId") int petId, ModelMap model) {
-		if(result.hasErrors()) {
-			 model.put("adoptionsApplication", ad);
-			 model.put("message", "La descripción debe contener entre 10 y 200 caracteres");
-	         return "adoptions/sendRequest";
+		if (result.hasErrors()) {
+			model.put("adoptionsApplication", ad);
+			model.put("message", "La descripción debe contener entre 10 y 200 caracteres");
+			return "adoptions/sendRequest";
 		}
 		try {
 			this.adoptionService.sendAdoptionRequest(ad, petId);
 			return "/adoptions/confirmed";
 		} catch (AdoptionDuplicatedException e) {
-			return "/adoptions/list";
+			model.put("message", "Ya has enviado una solicitud para esta mascota, no puedes solicitarla de nuevo");
+			return petsInAdoptionList(model);
 		}
-		
 	}
-	
+
 	@GetMapping("/{petId}/{decision}/{applicantId}")
-	public String resolveApplication(@PathVariable("petId") int petId, @PathVariable("applicantId") int applicantId, 
+	public String resolveApplication(@PathVariable("petId") int petId, @PathVariable("applicantId") int applicantId,
 			@PathVariable("decision") String decision, ModelMap model) {
-		
+
 		adoptionService.resolveApplication(petId, applicantId, decision);
 		return decision.equals("accept") ? "redirect:/owners/pets" : "redirect:/owners/pet/{petId}";
 	}
-	
+
 	@GetMapping("/{petId}")
 	public String putInAdoption(@PathVariable("petId") int petId, ModelMap model) {
-		
+
 		try {
 			adoptionService.putInAdoption(petId);
 		} catch (AdoptionProhibitedException e) {
