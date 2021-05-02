@@ -35,8 +35,8 @@ public class AdoptionService {
 	}
 
 	@Transactional(readOnly = true)
-	public Boolean petInAdoption(Integer petId) {
-		return (adoptionRepository.petInAdoption(petId) != 0);
+	public boolean petInAdoption(Integer petId) {
+		return adoptionRepository.petInAdoption(petId) != 0;
 	}
 
 	@Transactional(readOnly = true)
