@@ -96,7 +96,7 @@ public class Cause extends BaseEntity {
 
 	public Double getTotalAmount() {
 		Double sumDonations = 0.0;
-		if (donations != null && donations.size() > 0) {
+		if (donations != null && donations.isEmpty()) {
 			for (Donation donation : donations) {
 				if (donation.getCause().getName().equals(name)) {
 					sumDonations = sumDonations + donation.getQuantity();

@@ -8,18 +8,19 @@ import org.springframework.samples.petclinic.model.Cause;
 import org.springframework.samples.petclinic.repository.CauseRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 @Service
 public class CauseService {
-	
+
 	private CauseRepository causeRepository;
 	private OwnerService ownerService;
-	
+
 	@Autowired
 	public CauseService(CauseRepository causeRepository, OwnerService ownerService) {
 		this.causeRepository = causeRepository;
 		this.ownerService = ownerService;
 	}
-	
+
 	@Transactional
 	public Iterable<Cause> findAll() {
 		return causeRepository.findAll();
@@ -34,21 +35,17 @@ public class CauseService {
 	public Cause findCauseById(int id) throws DataAccessException {
 		return causeRepository.findById(id);
 	}
-	
+
 	@Transactional
 	public void save(Cause cause) {
-		if(cause.getTotalAmount() < cause.getBudgetTarget()){
-			cause.setTargetNotReached(true);
-		} else {
-			cause.setTargetNotReached(false);
-		}
+		cause.setTargetNotReached(cause.getTotalAmount() < cause.getBudgetTarget());
 		cause.setOwner(ownerService.findSessionOwner());
 		causeRepository.save(cause);
 	}
 
+	@Transactional
 	public void delete(Cause cause) {
 		causeRepository.delete(cause);
-		
 	}
-	
+
 }
