@@ -47,3 +47,10 @@ In the retrospective meeting, the team has a discussion about those results.
 | 02/05/2021    |:neutral_face: | :neutral_face: | :neutral_face: |     :smiley:   | :neutral_face: |
 | 03/05/2021    |   :smiley:    |    :smiley:    |    :smiley:    |     :smiley:   |    :smiley:    |
 
+## Sprint S4
+
+| Day           |    Jesusjbs   |     Marce97    |    Ferrabled   |    Vicsorvaz   |   Dancasnar1   |
+| ------------- | ------------- | -------------  | -------------  | -------------  | -------------  |
+| 07/05/2021    |    :smiley:   |                |                |                |                |
+| 09/05/2021    |    :smiley:   |                |                |        -       |                |
+| 11/05/2021    |    :smiley:   |        -       |        -       |        -       |        -       |
