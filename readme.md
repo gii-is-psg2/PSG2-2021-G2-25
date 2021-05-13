@@ -51,7 +51,8 @@ In the retrospective meeting, the team has a discussion about those results.
 
 | Day           |    Jesusjbs   |     Marce97    |    Ferrabled   |    Vicsorvaz   |   Dancasnar1   |
 | ------------- | ------------- | -------------  | -------------  | -------------  | -------------  |
-| 07/05/2021    |    :smiley:   |    :smiley:    |                |                |    :smiley:    |
-| 09/05/2021    |    :smiley:   |    :smiley:    |                |        -       |    :smiley:    |
+| 07/05/2021    |    :smiley:   |    :smiley:    | :neutral_face: |                |    :smiley:    |
+| 09/05/2021    |    :smiley:   |    :smiley:    |    :smiley:    |        -       |    :smiley:    |
 | 11/05/2021    |    :smiley:   |    :smiley:    |        -       |        -       |    :smiley:    |
-| 13/05/2021    |               |    :smiley:    |                |                |                |
+| 12/05/2021    |       -       |    -           |    :smiley:    |    :smiley:    |       -        |
+| 13/05/2021    |               |    :smiley:    |    :smiley:    |                |                |
