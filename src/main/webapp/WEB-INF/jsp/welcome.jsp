@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/doge.png" htmlEscape="true" var="petsImage"/>
-            <img style="width:200px; height:200px" class="img-responsive" src="${petsImage}"/>
+            <img style="width:200px; height:200px; margin:auto; " class="img-responsive" src="${petsImage}"/>
         </div>
     </div>
 </petclinic:layout>
