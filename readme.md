@@ -60,3 +60,4 @@ In the retrospective meeting, the team has a discussion about those results.
 | 17/05/2021    | :neutral_face:| :neutral_face: |    :smiley:    |                | :neutral_face: |
 | 18/05/2021    |   :smiley:    |    :smiley:    |    :smiley:    |                |    :smiley:    |
 | 19/05/2021    |   :smiley:    |                |    :smiley:    |                |                |
+| 21/05/2021    |   :smiley:    |    :smiley:    |    :smiley:    |    :smiley:    |    :smiley:    |
