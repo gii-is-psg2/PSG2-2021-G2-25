@@ -10,6 +10,7 @@ import org.springframework.samples.petclinic.model.Booking;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.service.BookingService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.exceptions.BookingNoPetOwnerException;
 import org.springframework.samples.petclinic.service.exceptions.BookingProhibitedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/bookings")
 public class BookingController {
-	
+
 	private final BookingService bookingService;
 	private final PetService petService;
 	private static final String MESSAGE = "message";
@@ -34,7 +35,7 @@ public class BookingController {
 		this.bookingService = bookingService;
 		this.petService = petService;
 	}
-	
+
 	@GetMapping()
 	public String showBookings(Model model) {
 
@@ -42,7 +43,7 @@ public class BookingController {
 		model.addAttribute("bookings", bookings);
 		return "bookings/bookingList";
 	}
-	
+
 	@GetMapping(value = "/new")
 	public String selectPet(Model model) {
 
@@ -50,21 +51,21 @@ public class BookingController {
 		model.addAttribute("pets", pets);
 		return CREATE;
 	}
-	
+
 	@PostMapping(value = "/new")
 	public String createBooking(@Valid Pet pet, ModelMap model) {
-		if(pet.getId() == null) {
+		if (pet.getId() == null) {
 			model.put(MESSAGE, "You must select a pet to continue.");
 			return CREATE;
 		}
 		model.addAttribute("booking", new Booking());
-		model.addAttribute("petId", pet.getId());		
+		model.addAttribute("petId", pet.getId());
 		return CREATE;
 	}
 
 	@PostMapping(value = "/new/{petId}")
-	public String processBooking(@Valid Booking booking, BindingResult result,
-			@PathVariable("petId") int petId, ModelMap model) {
+	public String processBooking(@Valid Booking booking, BindingResult result, @PathVariable("petId") int petId,
+			ModelMap model) {
 
 		String vista;
 		if (result.hasErrors()) {
@@ -78,14 +79,20 @@ public class BookingController {
 			} catch (BookingProhibitedException e) {
 				booking.setInitDate(null);
 				booking.setEndDate(null);
-				model.put(MESSAGE, "Esta habitación ya esta reservada o su mascota ya tiene una reserva. Por favor, pruebe otra habitación o día.");
+				model.put(MESSAGE,
+						"Esta habitación ya esta reservada o su mascota ya tiene una reserva. Por favor, pruebe otra habitación o día.");
+				return createBooking(petService.findPetById(petId), model);
+			} catch (BookingNoPetOwnerException e) {
+				booking.setInitDate(null);
+				booking.setEndDate(null);
+				model.put(MESSAGE, "La mascota seleccionada no pertenece a las que tiene registradas. Pruebe con otra.");
 				return createBooking(petService.findPetById(petId), model);
 			}
 			vista = "redirect:/bookings/";
 		}
 		return vista;
 	}
-	
+
 	@GetMapping(value = "/delete/{bookingId}")
 	public String deleteBooking(Map<String, Object> model, @PathVariable("bookingId") int bookingId) {
 		Booking booking = this.bookingService.findBookingById(bookingId);
