@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Booking;
 import org.springframework.samples.petclinic.repository.BookingRepository;
+import org.springframework.samples.petclinic.service.exceptions.BookingNoPetOwnerException;
 import org.springframework.samples.petclinic.service.exceptions.BookingProhibitedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,12 @@ public class BookingService {
 	}
 
 	@Transactional
-	public void saveBooking(Booking booking, Integer petId) throws BookingProhibitedException {
+	public void saveBooking(Booking booking, Integer petId) throws BookingProhibitedException, BookingNoPetOwnerException {
+		if(!petService.findPetById(petId).getOwner().equals(ownerService.findSessionOwner())) {
+			throw new BookingNoPetOwnerException();
+		}
+		
+		
 		if (booking.getEndDate().isBefore(booking.getInitDate())) {
 			throw new BookingProhibitedException();
 		}
