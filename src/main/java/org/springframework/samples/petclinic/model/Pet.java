@@ -63,6 +63,17 @@ public class Pet extends NamedEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
 	private List<Booking> bookings;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
+	private Set<AdoptionApplication> adoptionApplication;
+	
+	public Set<AdoptionApplication> getAdoptionApplication() {
+		return adoptionApplication;
+	}
+
+	public void setAdoptionApplication(Set<AdoptionApplication> adoptionApplication) {
+		this.adoptionApplication = adoptionApplication;
+	}
+
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
