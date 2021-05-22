@@ -19,11 +19,11 @@ import org.hibernate.validator.constraints.Length;
 public class Cause extends BaseEntity {
 
 	@NotBlank
-	@Length(max=20, message = "No puede tener más de 20 caracteres.")
+	@Length(max=50, message = "No puede tener más de 50 caracteres.")
 	private String name;
 
 	@NotBlank
-	@Length(max=50, message = "No puede tener más de 50 caracteres.")
+	@Length(max=120, message = "No puede tener más de 150 caracteres.")
 	private String description;
 
 	@Min(value = 5, message = "El mínimo objetivo es 5.")
@@ -33,7 +33,7 @@ public class Cause extends BaseEntity {
 	private Boolean targetNotReached = false;
 
 	@NotBlank
-	@Length(max=20, message = "No puede tener más de 20 caracteres.")
+	@Length(max=50, message = "No puede tener más de 50 caracteres.")
 	private String ong;
 
 	@ManyToOne
