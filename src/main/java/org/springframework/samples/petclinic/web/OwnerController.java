@@ -111,8 +111,13 @@ public class OwnerController {
 	@GetMapping(value = "/owners/{ownerId}/edit")
 	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
 		Owner owner = this.ownerService.findOwnerById(ownerId);
-		model.addAttribute(owner);
-		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		if(ownerId == owner.getId()) {
+			model.addAttribute(owner);
+			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		} else {
+			return "redirect:/exception";
+		}
+		
 	}
 
 	@PostMapping(value = "/owners/{ownerId}/edit")
@@ -135,16 +140,28 @@ public class OwnerController {
 	 */
 	@GetMapping("/owners/{ownerId}")
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
-		ModelAndView mav = new ModelAndView("owners/ownerDetails");
-		mav.addObject(this.ownerService.findOwnerById(ownerId));
-		return mav;
+		Owner owner = this.ownerService.findSessionOwner();
+		if(ownerId == owner.getId()) {
+			ModelAndView mav = new ModelAndView("owners/ownerDetails");
+			mav.addObject(this.ownerService.findOwnerById(ownerId));
+			return mav;
+		} else {
+			ModelAndView mav = new ModelAndView("exception");
+			return mav;
+		}
+		
 	}
 	
 	@GetMapping("/owners/{ownerId}/delete")
 	public String deleteOwner(Map<String, Object> model, @PathVariable("ownerId") int ownerId) {
 		Owner owner = this.ownerService.findOwnerById(ownerId);
-		this.ownerService.deleteOwner(owner);
-		return "redirect:/owners";
+		if(ownerId == owner.getId()) {
+			this.ownerService.deleteOwner(owner);
+			return "redirect:/owners";
+		} else {
+			return "redirect:/exception";
+		}
+		
 	}
 	
 	@GetMapping(value = "/owners/pets")
