@@ -40,6 +40,7 @@ public class OwnerController {
 	private final OwnerService ownerService;
 	private final PetService petService;
 	private final AdoptionService adoptionService;
+	private final UserService userService;
 	
 
 	@Autowired
@@ -48,6 +49,7 @@ public class OwnerController {
 		this.ownerService = ownerService;
 		this.petService = petService;
 		this.adoptionService = adoptionService;
+		this.userService = userService;
 	}
 
 	@InitBinder
@@ -110,9 +112,14 @@ public class OwnerController {
 
 	@GetMapping(value = "/owners/{ownerId}/edit")
 	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
-		Owner owner = this.ownerService.findOwnerById(ownerId);
-		model.addAttribute(owner);
-		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		if(userService.getAuthority().equals("admin") || ownerId == this.ownerService.findSessionOwner().getId()) {
+			Owner owner = this.ownerService.findOwnerById(ownerId);
+			model.addAttribute(owner);
+			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		} else {
+			return "redirect:/exception";
+		}
+		
 	}
 
 	@PostMapping(value = "/owners/{ownerId}/edit")
@@ -135,16 +142,29 @@ public class OwnerController {
 	 */
 	@GetMapping("/owners/{ownerId}")
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
-		ModelAndView mav = new ModelAndView("owners/ownerDetails");
-		mav.addObject(this.ownerService.findOwnerById(ownerId));
-		return mav;
+		 
+		
+		if(userService.getAuthority().equals("admin") || ownerId == this.ownerService.findSessionOwner().getId()) {
+			ModelAndView mav = new ModelAndView("owners/ownerDetails");
+			mav.addObject(this.ownerService.findOwnerById(ownerId));
+			return mav;
+		} else {
+			ModelAndView mav = new ModelAndView("exception");
+			return mav;
+		}
+		
 	}
 	
 	@GetMapping("/owners/{ownerId}/delete")
 	public String deleteOwner(Map<String, Object> model, @PathVariable("ownerId") int ownerId) {
-		Owner owner = this.ownerService.findOwnerById(ownerId);
-		this.ownerService.deleteOwner(owner);
-		return "redirect:/owners";
+		if(userService.getAuthority().equals("admin") || ownerId == this.ownerService.findSessionOwner().getId()) {
+			Owner owner = this.ownerService.findOwnerById(ownerId);
+			this.ownerService.deleteOwner(owner);
+			return "redirect:/owners";
+		} else {
+			return "redirect:/exception";
+		}
+		
 	}
 	
 	@GetMapping(value = "/owners/pets")
