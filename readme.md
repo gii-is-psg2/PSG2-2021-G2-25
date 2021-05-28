@@ -51,20 +51,20 @@ In the retrospective meeting, the team has a discussion about those results.
 
 | Day           |    Jesusjbs   |     Marce97    |    Ferrabled   |    Vicsorvaz   |   Dancasnar1   |
 | ------------- | ------------- | -------------  | -------------  | -------------  | -------------  |
-| 07/05/2021    |    :smiley:   |    :smiley:    | :neutral_face: |                |    :smiley:    |
+| 07/05/2021    |    :smiley:   |    :smiley:    | :neutral_face: |    :smiley:    |    :smiley:    |
 | 09/05/2021    |    :smiley:   |    :smiley:    |    :smiley:    |        -       |    :smiley:    |
 | 11/05/2021    |    :smiley:   |    :smiley:    |        -       |        -       |    :smiley:    |
 | 12/05/2021    | :neutral_face:|        -       |    :smiley:    |    :smiley:    |       -        |
 | 13/05/2021    | :neutral_face:|    :smiley:    |    :smiley:    |    :smiley:    |    :smiley:    |
 | 14/05/2021    | :neutral_face:|    :smiley:    |    :worried:   |                |                |
 | 16/05/2021    |   :smiley:    |        -       |        -       |        -       | :neutral_face: |
-| 17/05/2021    | :neutral_face:| :neutral_face: |    :smiley:    |        -       | :neutral_face: |
+| 17/05/2021    | :neutral_face:| :neutral_face: |    :smiley:    |    :smiley:    | :neutral_face: |
 | 18/05/2021    |   :smiley:    |    :smiley:    |    :smiley:    |        -       |    :smiley:    |
 | 19/05/2021    |   :smiley:    |        -       |    :smiley:    |        -       |       -        |
 | 20/05/2021    |   :smiley:    |    :smiley:    |    :smiley:    |        -       |    :smiley:    |
 | 21/05/2021    |   :smiley:    |    :smiley:    |    :smiley:    |    :smiley:    |    :smiley:    |
 | 22/05/2021    |       -       | :neutral_face: |        -       |        -       |    :smiley:    |
-| 23/05/2021    |   :smiley:    |        -       | :neutral_face: |        -       |        -       |
+| 23/05/2021    |   :smiley:    |        -       | :neutral_face: |    :smiley:    |        -       |
 | 24/05/2021    |       -       |        -       |    :smiley:    |        -       |        -       |
 | 25/05/2021    |   :smiley:    |    :smiley:    |        -       |        -       |        -       |
 | 26/05/2021    |       -       |        -       |        -       |    :smiley:    |        -       |
