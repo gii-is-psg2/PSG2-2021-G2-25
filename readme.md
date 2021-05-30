@@ -71,3 +71,4 @@ In the retrospective meeting, the team has a discussion about those results.
 | 27/05/2021    |   :smiley:    |    :smiley:    |    :smiley:    |        -       |    :smiley:    |
 | 28/05/2021    |   :worried:   |    :smiley:    |   :desperate:  |    :worried:   | :neutral_face: |
 | 29/05/2021    |       -       |        -       |    :worried:   |        -       |        -       |
+| 30/05/2021    |   :smiley:    |    :worried:   |        -       |        -       |        -       |
